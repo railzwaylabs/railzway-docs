@@ -6,7 +6,7 @@
     "description": "Collect finalized invoices explicitly and track provider routing, attempts, reconciliation, and outcomes."
   },
   "paths": {
-    "/v1/organizations/{parent}/providerConnections": {
+    "/v1/providerConnections": {
       "get": {
         "tags": [
           "PaymentConfigurationService"
@@ -14,14 +14,6 @@
         "summary": "ListProviderConnections lists an organization's provider connections.",
         "operationId": "PaymentConfigurationService_ListProviderConnections",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -118,16 +110,6 @@
         ],
         "summary": "CreateProviderConnection connects an organization merchant account.",
         "operationId": "PaymentConfigurationService_CreateProviderConnection",
-        "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -136,6 +118,9 @@
                 "properties": {
                   "credential": {
                     "$ref": "#/components/schemas/railzway.payment.v1.ProviderCredential"
+                  },
+                  "parent": {
+                    "type": "string"
                   },
                   "providerConnection": {
                     "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
@@ -148,6 +133,7 @@
                   }
                 },
                 "required": [
+                  "parent",
                   "providerConnection",
                   "providerConnectionId",
                   "credential"
@@ -232,7 +218,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/providerConnections/{name_1}": {
+    "/v1/providerConnections/{name}": {
       "get": {
         "tags": [
           "PaymentConfigurationService"
@@ -242,14 +228,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -332,7 +310,7 @@
         }
       }
     },
-    "/v1/organizations/{provider_connection.name}/providerConnections/{provider_connection.name_1}": {
+    "/v1/providerConnections/{provider_connection.name}": {
       "patch": {
         "tags": [
           "PaymentConfigurationService"
@@ -342,14 +320,6 @@
         "parameters": [
           {
             "name": "provider_connection.name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "provider_connection.name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -457,7 +427,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/providerConnections/{name_1}:disable": {
+    "/v1/providerConnections/{name}:disable": {
       "post": {
         "tags": [
           "PaymentConfigurationService"
@@ -467,14 +437,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -578,23 +540,13 @@
         }
       }
     },
-    "/v1/organizations/{name}/routingPolicy": {
+    "/v1/routingPolicy": {
       "get": {
         "tags": [
           "PaymentConfigurationService"
         ],
         "summary": "GetRoutingPolicy retrieves an organization's routing policy.",
         "operationId": "PaymentConfigurationService_GetRoutingPolicy",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "RoutingPolicy contains the ordered provider rules for an organization.",
@@ -668,9 +620,7 @@
             }
           }
         }
-      }
-    },
-    "/v1/organizations/{routing_policy.name}/routingPolicy": {
+      },
       "patch": {
         "tags": [
           "PaymentConfigurationService"
@@ -678,14 +628,6 @@
         "summary": "UpdateRoutingPolicy replaces selected routing policy fields.",
         "operationId": "PaymentConfigurationService_UpdateRoutingPolicy",
         "parameters": [
-          {
-            "name": "routing_policy.name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "updateMask",
             "in": "query",
@@ -787,7 +729,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/paymentMethods": {
+    "/v1/customers/{parent}/paymentMethods": {
       "get": {
         "tags": [
           "PaymentMethodService"
@@ -797,14 +739,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -910,14 +844,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -1029,7 +955,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/paymentMethods/{name_2}": {
+    "/v1/customers/{name}/paymentMethods/{name_1}": {
       "get": {
         "tags": [
           "PaymentMethodService"
@@ -1047,14 +973,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -1137,7 +1055,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/paymentMethods/{name_2}:disable": {
+    "/v1/customers/{name}/paymentMethods/{name_1}:disable": {
       "post": {
         "tags": [
           "PaymentMethodService"
@@ -1155,14 +1073,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -1266,7 +1176,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/payments": {
+    "/v1/customers/{parent}/payments": {
       "get": {
         "tags": [
           "PaymentService"
@@ -1276,14 +1186,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -1396,14 +1298,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -1537,7 +1431,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/payments/{name_2}": {
+    "/v1/customers/{name}/payments/{name_1}": {
       "get": {
         "tags": [
           "PaymentService"
@@ -1555,14 +1449,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -1645,7 +1531,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/payments/{name_2}:retry": {
+    "/v1/customers/{name}/payments/{name_1}:retry": {
       "post": {
         "tags": [
           "PaymentService"
@@ -1663,14 +1549,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -1777,7 +1655,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/payments/{name_2}/attempts/{name_3}": {
+    "/v1/customers/{name}/payments/{name_1}/attempts/{name_2}": {
       "get": {
         "tags": [
           "PaymentService"
@@ -1803,14 +1681,6 @@
           },
           {
             "name": "name_2",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_3",
             "in": "path",
             "required": true,
             "schema": {
@@ -1893,7 +1763,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/payments/{parent_2}/attempts": {
+    "/v1/customers/{parent}/payments/{parent_1}/attempts": {
       "get": {
         "tags": [
           "PaymentService"
@@ -1911,14 +1781,6 @@
           },
           {
             "name": "parent_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_2",
             "in": "path",
             "required": true,
             "schema": {

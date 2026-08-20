@@ -49,7 +49,7 @@ export default function Layout(props) {
   return (
     <>
       {props.children}
-      <Comp document="./openapi/ingest.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/usageEvents:ingest","method":"post"},{"path":"/v1/organizations/{parent}/usageEvents:batchIngest","method":"post"},{"path":"/v1/organizations/{name}/usageEvents/{name_1}","method":"get"},{"path":"/v1/organizations/{parent}/usageEvents","method":"get"},{"path":"/v1/organizations/{name}/usageEvents/{name_1}:correct","method":"post"},{"path":"/v1/organizations/{parent}/usageEvents:replay","method":"post"}]} showTitle showDescription />
+      <Comp document="./openapi/ingest.openapi.json" webhooks={[]} operations={[{"path":"/v1/usageEvents:ingest","method":"post"},{"path":"/v1/usageEvents:batchIngest","method":"post"},{"path":"/v1/usageEvents/{name}","method":"get"},{"path":"/v1/usageEvents","method":"get"},{"path":"/v1/usageEvents/{name}:correct","method":"post"},{"path":"/v1/usageEvents:replay","method":"post"}]} showTitle showDescription />
     </>
   );
 }

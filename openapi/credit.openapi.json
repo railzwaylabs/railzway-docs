@@ -6,7 +6,7 @@
     "description": "Grant promotional credits, record paid commitments, inspect balances, and preserve financial history."
   },
   "paths": {
-    "/v1/organizations/{parent}/customers/{parent_1}/credits": {
+    "/v1/customers/{parent}/credits": {
       "get": {
         "tags": [
           "CreditService"
@@ -16,14 +16,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -143,14 +135,6 @@
             }
           },
           {
-            "name": "parent_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "creditId",
             "in": "query",
             "required": true,
@@ -251,7 +235,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/credits/{name_2}": {
+    "/v1/customers/{name}/credits/{name_1}": {
       "get": {
         "tags": [
           "CreditService"
@@ -269,14 +253,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -359,7 +335,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/credits/{name_2}:void": {
+    "/v1/customers/{name}/credits/{name_1}:void": {
       "post": {
         "tags": [
           "CreditService"
@@ -377,14 +353,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -489,7 +457,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/commitments": {
+    "/v1/customers/{parent}/commitments": {
       "get": {
         "tags": [
           "CreditService"
@@ -499,14 +467,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -626,14 +586,6 @@
             }
           },
           {
-            "name": "parent_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "commitmentId",
             "in": "query",
             "required": true,
@@ -734,7 +686,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/commitments/{name_2}": {
+    "/v1/customers/{name}/commitments/{name_1}": {
       "get": {
         "tags": [
           "CreditService"
@@ -752,14 +704,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -842,7 +786,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/commitments/{name_2}:void": {
+    "/v1/customers/{name}/commitments/{name_1}:void": {
       "post": {
         "tags": [
           "CreditService"
@@ -860,14 +804,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -972,7 +908,7 @@
         }
       }
     },
-    "/v1/organizations/{customer}/customers/{customer_1}/balance": {
+    "/v1/customers/{customer}/balance": {
       "get": {
         "tags": [
           "CreditService"
@@ -982,14 +918,6 @@
         "parameters": [
           {
             "name": "customer",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "customer_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -1080,7 +1008,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/balanceTransactions": {
+    "/v1/customers/{parent}/balanceTransactions": {
       "get": {
         "tags": [
           "CreditService"
@@ -1090,14 +1018,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {

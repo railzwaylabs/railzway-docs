@@ -6,7 +6,7 @@
     "description": "Preview, finalize, retrieve, list, and void immutable billing-period invoices."
   },
   "paths": {
-    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}": {
+    "/v1/customers/{name}/invoices/{name_1}": {
       "get": {
         "tags": [
           "InvoiceService"
@@ -24,14 +24,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -114,7 +106,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/invoices": {
+    "/v1/customers/{parent}/invoices": {
       "get": {
         "tags": [
           "InvoiceService"
@@ -124,14 +116,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -236,7 +220,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/invoices:preview": {
+    "/v1/customers/{parent}/invoices:preview": {
       "post": {
         "tags": [
           "InvoiceService"
@@ -246,14 +230,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -363,7 +339,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:finalize": {
+    "/v1/customers/{name}/invoices/{name_1}:finalize": {
       "post": {
         "tags": [
           "InvoiceService"
@@ -381,14 +357,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -489,7 +457,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:void": {
+    "/v1/customers/{name}/invoices/{name_1}:void": {
       "post": {
         "tags": [
           "InvoiceService"
@@ -507,14 +475,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {

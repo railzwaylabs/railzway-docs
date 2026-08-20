@@ -6,7 +6,7 @@
     "description": "Manage billable customer accounts, external identity mapping, billing profiles, currency, and metadata."
   },
   "paths": {
-    "/v1/organizations/{parent}/customers": {
+    "/v1/customers": {
       "get": {
         "tags": [
           "CustomerService"
@@ -14,14 +14,6 @@
         "summary": "ListCustomers lists customers in an organization.",
         "operationId": "CustomerService_ListCustomers",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -127,14 +119,6 @@
         "operationId": "CustomerService_CreateCustomer",
         "parameters": [
           {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "customerId",
             "in": "query",
             "schema": {
@@ -234,7 +218,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}": {
+    "/v1/customers/{name}": {
       "get": {
         "tags": [
           "CustomerService"
@@ -244,14 +228,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -334,7 +310,7 @@
         }
       }
     },
-    "/v1/organizations/{customer.name}/customers/{customer.name_1}": {
+    "/v1/customers/{customer.name}": {
       "patch": {
         "tags": [
           "CustomerService"
@@ -344,14 +320,6 @@
         "parameters": [
           {
             "name": "customer.name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "customer.name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -459,7 +427,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}:archive": {
+    "/v1/customers/{name}:archive": {
       "post": {
         "tags": [
           "CustomerService"
@@ -469,14 +437,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {

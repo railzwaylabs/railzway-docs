@@ -6,23 +6,13 @@
     "description": "Ingest idempotent single or batch usage events and create append-only corrections."
   },
   "paths": {
-    "/v1/organizations/{parent}/usageEvents:ingest": {
+    "/v1/usageEvents:ingest": {
       "post": {
         "tags": [
           "UsageIngestionService"
         ],
         "summary": "IngestUsage accepts one idempotent usage event.",
         "operationId": "UsageIngestionService_IngestUsage",
-        "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -31,9 +21,13 @@
                 "properties": {
                   "event": {
                     "$ref": "#/components/schemas/railzway.fare.ingest.v1.UsageEvent"
+                  },
+                  "parent": {
+                    "type": "string"
                   }
                 },
                 "required": [
+                  "parent",
                   "event"
                 ]
               }
@@ -116,23 +110,13 @@
         }
       }
     },
-    "/v1/organizations/{parent}/usageEvents:batchIngest": {
+    "/v1/usageEvents:batchIngest": {
       "post": {
         "tags": [
           "UsageIngestionService"
         ],
         "summary": "BatchIngestUsage accepts multiple independently processed usage events.",
         "operationId": "UsageIngestionService_BatchIngestUsage",
-        "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -144,9 +128,13 @@
                     "items": {
                       "$ref": "#/components/schemas/railzway.fare.ingest.v1.UsageEvent"
                     }
+                  },
+                  "parent": {
+                    "type": "string"
                   }
                 },
                 "required": [
+                  "parent",
                   "events"
                 ]
               }
@@ -229,7 +217,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/usageEvents/{name_1}": {
+    "/v1/usageEvents/{name}": {
       "get": {
         "tags": [
           "UsageIngestionService"
@@ -239,14 +227,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -329,7 +309,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/usageEvents": {
+    "/v1/usageEvents": {
       "get": {
         "tags": [
           "UsageIngestionService"
@@ -337,14 +317,6 @@
         "summary": "ListUsageEvents lists usage events in an organization.",
         "operationId": "UsageIngestionService_ListUsageEvents",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -355,13 +327,6 @@
           },
           {
             "name": "pageToken",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "customer",
             "in": "query",
             "schema": {
               "type": "string"
@@ -466,7 +431,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/usageEvents/{name_1}:correct": {
+    "/v1/usageEvents/{name}:correct": {
       "post": {
         "tags": [
           "UsageIngestionService"
@@ -476,14 +441,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -591,23 +548,13 @@
         }
       }
     },
-    "/v1/organizations/{parent}/usageEvents:replay": {
+    "/v1/usageEvents:replay": {
       "post": {
         "tags": [
           "UsageIngestionService"
         ],
         "summary": "ReplayUsageEvents requests reprocessing of previously ingested events.",
         "operationId": "UsageIngestionService_ReplayUsageEvents",
-        "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -624,6 +571,9 @@
                   "eventType": {
                     "type": "string"
                   },
+                  "parent": {
+                    "type": "string"
+                  },
                   "requestId": {
                     "type": "string"
                   },
@@ -633,6 +583,7 @@
                   }
                 },
                 "required": [
+                  "parent",
                   "startTime",
                   "endTime"
                 ]

@@ -6,7 +6,7 @@
     "description": "Query aggregated usage and preview deterministic charges using the effective contract and rates."
   },
   "paths": {
-    "/v1/organizations/{customer}/customers/{customer_1}/usage": {
+    "/v1/customers/{customer}/usage": {
       "get": {
         "tags": [
           "RatingService"
@@ -16,14 +16,6 @@
         "parameters": [
           {
             "name": "customer",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "customer_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -134,7 +126,7 @@
         }
       }
     },
-    "/v1/organizations/{customer}/customers/{customer_1}/charges:preview": {
+    "/v1/customers/{customer}/charges:preview": {
       "post": {
         "tags": [
           "RatingService"
@@ -144,14 +136,6 @@
         "parameters": [
           {
             "name": "customer",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "customer_1",
             "in": "path",
             "required": true,
             "schema": {

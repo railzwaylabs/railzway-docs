@@ -6,12 +6,6 @@ _openapi:
     - ./openapi/organization.openapi.json
   toc:
     - depth: 2
-      title: ListOrganizations lists organizations visible to the caller.
-      url: '#listorganizations-lists-organizations-visible-to-the-caller'
-    - depth: 2
-      title: CreateOrganization creates a billing tenant.
-      url: '#createorganization-creates-a-billing-tenant'
-    - depth: 2
       title: GetOrganization retrieves an organization by resource name.
       url: '#getorganization-retrieves-an-organization-by-resource-name'
     - depth: 2
@@ -19,10 +13,6 @@ _openapi:
       url: '#updateorganization-updates-selected-organization-fields'
   structuredData:
     headings:
-      - content: ListOrganizations lists organizations visible to the caller.
-        id: listorganizations-lists-organizations-visible-to-the-caller
-      - content: CreateOrganization creates a billing tenant.
-        id: createorganization-creates-a-billing-tenant
       - content: GetOrganization retrieves an organization by resource name.
         id: getorganization-retrieves-an-organization-by-resource-name
       - content: UpdateOrganization updates selected organization fields.
@@ -39,7 +29,7 @@ export default function Layout(props) {
   return (
     <>
       {props.children}
-      <Comp document="./openapi/organization.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations","method":"get"},{"path":"/v1/organizations","method":"post"},{"path":"/v1/organizations/{name}","method":"get"},{"path":"/v1/organizations/{organization.name}","method":"patch"}]} showTitle showDescription />
+      <Comp document="./openapi/organization.openapi.json" webhooks={[]} operations={[{"path":"/v1/organization","method":"get"},{"path":"/v1/organization","method":"patch"}]} showTitle showDescription />
     </>
   );
 }

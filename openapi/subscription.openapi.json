@@ -6,7 +6,7 @@
     "description": "Manage recurring product instances under a customer contract, including amendments and cancellation."
   },
   "paths": {
-    "/v1/organizations/{parent}/customers/{parent_1}/subscriptions": {
+    "/v1/customers/{parent}/subscriptions": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -16,14 +16,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -136,14 +128,6 @@
             }
           },
           {
-            "name": "parent_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "subscriptionId",
             "in": "query",
             "required": true,
@@ -244,7 +228,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}": {
+    "/v1/customers/{name}/subscriptions/{name_1}": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -262,14 +246,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -352,7 +328,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:cancel": {
+    "/v1/customers/{name}/subscriptions/{name_1}:cancel": {
       "post": {
         "tags": [
           "SubscriptionService"
@@ -370,14 +346,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -482,7 +450,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:scheduleAmendment": {
+    "/v1/customers/{name}/subscriptions/{name_1}:scheduleAmendment": {
       "post": {
         "tags": [
           "SubscriptionService"
@@ -500,14 +468,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -611,7 +571,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}": {
+    "/v1/customers/{name}/subscriptions/{name_1}/amendments/{name_2}": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -637,14 +597,6 @@
           },
           {
             "name": "name_2",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_3",
             "in": "path",
             "required": true,
             "schema": {
@@ -727,7 +679,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/subscriptions/{parent_2}/amendments": {
+    "/v1/customers/{parent}/subscriptions/{parent_1}/amendments": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -745,14 +697,6 @@
           },
           {
             "name": "parent_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -850,7 +794,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}:cancel": {
+    "/v1/customers/{name}/subscriptions/{name_1}/amendments/{name_2}:cancel": {
       "post": {
         "tags": [
           "SubscriptionService"
@@ -876,14 +820,6 @@
           },
           {
             "name": "name_2",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_3",
             "in": "path",
             "required": true,
             "schema": {

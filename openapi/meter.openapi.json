@@ -6,7 +6,7 @@
     "description": "Define how raw usage events are grouped and aggregated into billable quantities."
   },
   "paths": {
-    "/v1/organizations/{parent}/meters": {
+    "/v1/meters": {
       "get": {
         "tags": [
           "MeterService"
@@ -14,14 +14,6 @@
         "summary": "ListMeters lists meters in an organization.",
         "operationId": "MeterService_ListMeters",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -119,14 +111,6 @@
         "summary": "CreateMeter creates a usage meter.",
         "operationId": "MeterService_CreateMeter",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "meterId",
             "in": "query",
@@ -228,7 +212,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/meters/{name_1}": {
+    "/v1/meters/{name}": {
       "get": {
         "tags": [
           "MeterService"
@@ -238,14 +222,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -328,7 +304,7 @@
         }
       }
     },
-    "/v1/organizations/{meter.name}/meters/{meter.name_1}": {
+    "/v1/meters/{meter.name}": {
       "patch": {
         "tags": [
           "MeterService"
@@ -338,14 +314,6 @@
         "parameters": [
           {
             "name": "meter.name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "meter.name_1",
             "in": "path",
             "required": true,
             "schema": {
