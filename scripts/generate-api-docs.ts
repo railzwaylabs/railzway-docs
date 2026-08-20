@@ -25,6 +25,30 @@ function normalizeErrorResponses(specification: Record<string, any>) {
   });
 }
 
+function normalizePublicPaths(specification: Record<string, any>) {
+  const normalized: Record<string, any> = {};
+  for (const [path, pathItem] of Object.entries(specification.paths ?? {}) as [string, Record<string, any>][]) {
+    if (path === '/v1/organizations') continue;
+    const match = path.match(/^\/v1\/organizations\/\{([^}]+)\}(.*)$/);
+    if (!match) {
+      normalized[path] = pathItem;
+      continue;
+    }
+    const [, organizationParameter, suffix] = match;
+    const publicPath = suffix === '' ? '/v1/organization' : `/v1${suffix}`;
+    for (const operation of Object.values(pathItem)) {
+      if (operation && typeof operation === 'object' && Array.isArray(operation.parameters)) {
+        operation.parameters = operation.parameters.filter(
+          (parameter: { in?: string; name?: string }) =>
+            !(parameter.in === 'path' && parameter.name === organizationParameter),
+        );
+      }
+    }
+    normalized[publicPath] = { ...(normalized[publicPath] ?? {}), ...pathItem };
+  }
+  specification.paths = normalized;
+}
+
 async function main() {
   await mkdir(targetRoot, { recursive: true });
   await Promise.all(
@@ -40,6 +64,7 @@ async function main() {
       };
 
       normalizeErrorResponses(specification);
+      normalizePublicPaths(specification);
 
       await writeFile(
         `${targetRoot}/${filename}`,
