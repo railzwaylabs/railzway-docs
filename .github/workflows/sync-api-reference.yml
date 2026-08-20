@@ -1,0 +1,120 @@
+name: Sync API reference
+
+on:
+  repository_dispatch:
+    types:
+      - api-spec-updated
+  workflow_dispatch:
+    inputs:
+      api_ref:
+        description: railzwayapis branch, tag, or commit to synchronize
+        required: true
+        default: main
+
+concurrency:
+  group: api-reference-${{ github.event.client_payload.sha || inputs.api_ref || 'main' }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  synchronize:
+    name: Generate and propose API reference update
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      API_REF: ${{ github.event.client_payload.sha || inputs.api_ref || 'main' }}
+
+    steps:
+      - name: Checkout documentation
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: railzway-docs
+          token: ${{ secrets.DOCS_PR_TOKEN || github.token }}
+
+      - name: Checkout API contracts
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: railzwaylabs/railzwayapis
+          ref: ${{ env.API_REF }}
+          path: railzwayapis
+          token: ${{ secrets.API_READ_TOKEN || github.token }}
+          persist-credentials: false
+
+      - name: Set up Buf
+        uses: bufbuild/buf-action@fd21066df7214747548607aaa45548ba2b9bc1ff # v1.4.0
+        with:
+          version: "1.68.1"
+          setup_only: true
+          token: ${{ secrets.BUF_TOKEN }}
+
+      - name: Generate OpenAPI from Protobuf
+        working-directory: railzwayapis
+        run: make generate
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: railzway-docs/pnpm-lock.yaml
+
+      - name: Install documentation dependencies
+        working-directory: railzway-docs
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate API reference
+        working-directory: railzway-docs
+        run: pnpm api:generate
+
+      - name: Verify documentation
+        working-directory: railzway-docs
+        run: |
+          pnpm lint
+          pnpm types:check
+          pnpm build
+
+      - name: Detect generated changes
+        id: changes
+        working-directory: railzway-docs
+        run: |
+          if git status --porcelain -- openapi content/docs/api-reference/generated | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit generated reference
+        if: steps.changes.outputs.changed == 'true'
+        working-directory: railzway-docs
+        env:
+          API_SHA: ${{ env.API_REF }}
+        run: |
+          branch="automation/sync-api-${API_SHA:0:12}-${GITHUB_RUN_ATTEMPT}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add openapi content/docs/api-reference/generated
+          git commit -m "docs(api): sync railzwayapis ${API_SHA:0:12}"
+          git push --set-upstream origin "$branch"
+          echo "branch=$branch" >> "$GITHUB_ENV"
+
+      - name: Open documentation pull request
+        if: steps.changes.outputs.changed == 'true'
+        working-directory: railzway-docs
+        env:
+          GH_TOKEN: ${{ secrets.DOCS_PR_TOKEN || github.token }}
+          API_SHA: ${{ env.API_REF }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "docs(api): sync railzwayapis ${API_SHA:0:12}" \
+            --body "Automated API reference update generated from railzwaylabs/railzwayapis@${API_SHA}."

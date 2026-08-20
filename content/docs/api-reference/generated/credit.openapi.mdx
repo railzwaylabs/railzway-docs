@@ -1,0 +1,75 @@
+---
+title: Credits and commitments
+full: true
+_openapi:
+  preload:
+    - ./openapi/credit.openapi.json
+  toc:
+    - depth: 2
+      title: ListCredits lists credit grants belonging to a customer.
+      url: '#listcredits-lists-credit-grants-belonging-to-a-customer'
+    - depth: 2
+      title: GrantCredit grants a time-bounded credit to a customer.
+      url: '#grantcredit-grants-a-time-bounded-credit-to-a-customer'
+    - depth: 2
+      title: GetCredit retrieves a credit grant by resource name.
+      url: '#getcredit-retrieves-a-credit-grant-by-resource-name'
+    - depth: 2
+      title: VoidCredit prevents any remaining grant amount from being consumed.
+      url: '#voidcredit-prevents-any-remaining-grant-amount-from-being-consumed'
+    - depth: 2
+      title: ListCommitments lists commitments belonging to a customer.
+      url: '#listcommitments-lists-commitments-belonging-to-a-customer'
+    - depth: 2
+      title: CreateCommitment creates a customer's minimum-spend commitment.
+      url: '#createcommitment-creates-a-customers-minimum-spend-commitment'
+    - depth: 2
+      title: GetCommitment retrieves a commitment by resource name.
+      url: '#getcommitment-retrieves-a-commitment-by-resource-name'
+    - depth: 2
+      title: VoidCommitment deactivates a commitment while preserving its record.
+      url: '#voidcommitment-deactivates-a-commitment-while-preserving-its-record'
+    - depth: 2
+      title: GetBalance returns the customer's current credit balance.
+      url: '#getbalance-returns-the-customers-current-credit-balance'
+    - depth: 2
+      title: ListBalanceTransactions lists the ledger entries behind a balance.
+      url: '#listbalancetransactions-lists-the-ledger-entries-behind-a-balance'
+  structuredData:
+    headings:
+      - content: ListCredits lists credit grants belonging to a customer.
+        id: listcredits-lists-credit-grants-belonging-to-a-customer
+      - content: GrantCredit grants a time-bounded credit to a customer.
+        id: grantcredit-grants-a-time-bounded-credit-to-a-customer
+      - content: GetCredit retrieves a credit grant by resource name.
+        id: getcredit-retrieves-a-credit-grant-by-resource-name
+      - content: VoidCredit prevents any remaining grant amount from being consumed.
+        id: voidcredit-prevents-any-remaining-grant-amount-from-being-consumed
+      - content: ListCommitments lists commitments belonging to a customer.
+        id: listcommitments-lists-commitments-belonging-to-a-customer
+      - content: CreateCommitment creates a customer's minimum-spend commitment.
+        id: createcommitment-creates-a-customers-minimum-spend-commitment
+      - content: GetCommitment retrieves a commitment by resource name.
+        id: getcommitment-retrieves-a-commitment-by-resource-name
+      - content: VoidCommitment deactivates a commitment while preserving its record.
+        id: voidcommitment-deactivates-a-commitment-while-preserving-its-record
+      - content: GetBalance returns the customer's current credit balance.
+        id: getbalance-returns-the-customers-current-credit-balance
+      - content: ListBalanceTransactions lists the ledger entries behind a balance.
+        id: listbalancetransactions-lists-the-ledger-entries-behind-a-balance
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/credit.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/customers/{parent_1}/credits","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/credits","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/credits/{name_2}","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/credits/{name_2}:void","method":"post"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/commitments","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/commitments","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/commitments/{name_2}","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/commitments/{name_2}:void","method":"post"},{"path":"/v1/organizations/{customer}/customers/{customer_1}/balance","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/balanceTransactions","method":"get"}]} showTitle showDescription />
+    </>
+  );
+}

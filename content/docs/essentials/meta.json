@@ -1,0 +1,4 @@
+{
+  "title": "API essentials",
+  "pages": ["base-urls", "authentication", "api-keys", "custom-domains", "idempotency", "errors"]
+}

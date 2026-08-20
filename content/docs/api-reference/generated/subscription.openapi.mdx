@@ -1,0 +1,65 @@
+---
+title: Subscriptions
+full: true
+_openapi:
+  preload:
+    - ./openapi/subscription.openapi.json
+  toc:
+    - depth: 2
+      title: ListSubscriptions lists subscriptions belonging to a customer.
+      url: '#listsubscriptions-lists-subscriptions-belonging-to-a-customer'
+    - depth: 2
+      title: CreateSubscription creates a subscription for a customer.
+      url: '#createsubscription-creates-a-subscription-for-a-customer'
+    - depth: 2
+      title: GetSubscription retrieves a subscription by resource name.
+      url: '#getsubscription-retrieves-a-subscription-by-resource-name'
+    - depth: 2
+      title: CancelSubscription schedules or immediately applies cancellation.
+      url: '#cancelsubscription-schedules-or-immediately-applies-cancellation'
+    - depth: 2
+      title: ScheduleAmendment schedules a future subscription change.
+      url: '#scheduleamendment-schedules-a-future-subscription-change'
+    - depth: 2
+      title: GetAmendment retrieves a subscription amendment by resource name.
+      url: '#getamendment-retrieves-a-subscription-amendment-by-resource-name'
+    - depth: 2
+      title: ListAmendments lists amendments for a subscription.
+      url: '#listamendments-lists-amendments-for-a-subscription'
+    - depth: 2
+      title: CancelAmendment cancels an amendment that has not yet been applied.
+      url: '#cancelamendment-cancels-an-amendment-that-has-not-yet-been-applied'
+  structuredData:
+    headings:
+      - content: ListSubscriptions lists subscriptions belonging to a customer.
+        id: listsubscriptions-lists-subscriptions-belonging-to-a-customer
+      - content: CreateSubscription creates a subscription for a customer.
+        id: createsubscription-creates-a-subscription-for-a-customer
+      - content: GetSubscription retrieves a subscription by resource name.
+        id: getsubscription-retrieves-a-subscription-by-resource-name
+      - content: CancelSubscription schedules or immediately applies cancellation.
+        id: cancelsubscription-schedules-or-immediately-applies-cancellation
+      - content: ScheduleAmendment schedules a future subscription change.
+        id: scheduleamendment-schedules-a-future-subscription-change
+      - content: GetAmendment retrieves a subscription amendment by resource name.
+        id: getamendment-retrieves-a-subscription-amendment-by-resource-name
+      - content: ListAmendments lists amendments for a subscription.
+        id: listamendments-lists-amendments-for-a-subscription
+      - content: CancelAmendment cancels an amendment that has not yet been applied.
+        id: cancelamendment-cancels-an-amendment-that-has-not-yet-been-applied
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/subscription.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/customers/{parent_1}/subscriptions","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/subscriptions","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:cancel","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:scheduleAmendment","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/subscriptions/{parent_2}/amendments","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}:cancel","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

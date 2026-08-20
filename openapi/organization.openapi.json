@@ -1,0 +1,522 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Organizations",
+    "version": "1.0.0",
+    "description": "Create and manage the organization boundary that owns billing configuration, currency, time zone, and API resources."
+  },
+  "paths": {
+    "/v1/organizations": {
+      "get": {
+        "tags": [
+          "OrganizationService"
+        ],
+        "summary": "ListOrganizations lists organizations visible to the caller.",
+        "operationId": "OrganizationService_ListOrganizations",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListOrganizationsResponse contains a page of organizations.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.ListOrganizationsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "OrganizationService"
+        ],
+        "summary": "CreateOrganization creates a billing tenant.",
+        "operationId": "OrganizationService_CreateOrganization",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.organization.v1.Organization"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Organization represents an isolated billing tenant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}": {
+      "get": {
+        "tags": [
+          "OrganizationService"
+        ],
+        "summary": "GetOrganization retrieves an organization by resource name.",
+        "operationId": "OrganizationService_GetOrganization",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization represents an isolated billing tenant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{organization.name}": {
+      "patch": {
+        "tags": [
+          "OrganizationService"
+        ],
+        "summary": "UpdateOrganization updates selected organization fields.",
+        "operationId": "OrganizationService_UpdateOrganization",
+        "parameters": [
+          {
+            "name": "organization.name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.organization.v1.Organization"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Organization represents an isolated billing tenant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.fare.organization.v1.ListOrganizationsResponse": {
+        "type": "object",
+        "description": "ListOrganizationsResponse contains a page of organizations.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "organizations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.organization.v1.Organization"
+            }
+          }
+        }
+      },
+      "railzway.fare.organization.v1.Organization": {
+        "type": "object",
+        "description": "Organization represents an isolated billing tenant.",
+        "properties": {
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "defaultCurrencyCode": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "timeZone": {
+            "type": "string"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "displayName",
+          "defaultCurrencyCode",
+          "timeZone"
+        ]
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "OrganizationService",
+      "description": "OrganizationService manages billing tenants."
+    }
+  ]
+}

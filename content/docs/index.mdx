@@ -1,0 +1,31 @@
+---
+title: Railzway documentation
+description: Build accurate, deterministic usage-based billing with Railzway.
+---
+
+Railzway is an open-source billing engine for metering usage, applying commercial
+terms, and producing reproducible financial records.
+
+<Callout title="Contract-first API">
+  The public API is defined in versioned Protocol Buffer packages and exposed
+  through both gRPC and REST/JSON transcoding.
+</Callout>
+
+## Start here
+
+<Cards>
+  <Card title="Quickstart" description="Complete your first billing workflow." href="/docs/quickstart" />
+  <Card title="Core concepts" description="Understand Railzway's billing model." href="/docs/concepts" />
+  <Card title="API essentials" description="Authentication, idempotency, errors, and pagination." href="/docs/essentials/authentication" />
+  <Card title="API reference" description="Explore the generated Fare API contract." href="/docs/api-reference" />
+</Cards>
+
+## Billing data flow
+
+```text
+usage event -> meter -> product -> effective rate -> contract
+            -> rated charge -> credits -> invoice -> payment
+```
+
+Railzway keeps billing computation separate from payment collection. Finalizing
+an invoice records what is owed; collecting it is an explicit operation.

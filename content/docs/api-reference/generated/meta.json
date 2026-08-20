@@ -1,0 +1,17 @@
+{
+  "title": "Fare API v1",
+  "pages": [
+    "organization.openapi",
+    "organization_domain.openapi",
+    "customer.openapi",
+    "meter.openapi",
+    "ingest.openapi",
+    "catalog.openapi",
+    "contract.openapi",
+    "subscription.openapi",
+    "credit.openapi",
+    "rating.openapi",
+    "invoice.openapi",
+    "payment.openapi"
+  ]
+}

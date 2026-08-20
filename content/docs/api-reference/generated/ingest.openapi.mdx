@@ -1,0 +1,55 @@
+---
+title: Usage ingestion
+full: true
+_openapi:
+  preload:
+    - ./openapi/ingest.openapi.json
+  toc:
+    - depth: 2
+      title: IngestUsage accepts one idempotent usage event.
+      url: '#ingestusage-accepts-one-idempotent-usage-event'
+    - depth: 2
+      title: BatchIngestUsage accepts multiple independently processed usage events.
+      url: '#batchingestusage-accepts-multiple-independently-processed-usage-events'
+    - depth: 2
+      title: GetUsageEvent retrieves an ingested usage event.
+      url: '#getusageevent-retrieves-an-ingested-usage-event'
+    - depth: 2
+      title: ListUsageEvents lists usage events in an organization.
+      url: '#listusageevents-lists-usage-events-in-an-organization'
+    - depth: 2
+      title: CorrectUsageEvent supersedes an accepted event with corrected data.
+      url: '#correctusageevent-supersedes-an-accepted-event-with-corrected-data'
+    - depth: 2
+      title: ReplayUsageEvents requests reprocessing of previously ingested events.
+      url: '#replayusageevents-requests-reprocessing-of-previously-ingested-events'
+  structuredData:
+    headings:
+      - content: IngestUsage accepts one idempotent usage event.
+        id: ingestusage-accepts-one-idempotent-usage-event
+      - content: BatchIngestUsage accepts multiple independently processed usage events.
+        id: batchingestusage-accepts-multiple-independently-processed-usage-events
+      - content: GetUsageEvent retrieves an ingested usage event.
+        id: getusageevent-retrieves-an-ingested-usage-event
+      - content: ListUsageEvents lists usage events in an organization.
+        id: listusageevents-lists-usage-events-in-an-organization
+      - content: CorrectUsageEvent supersedes an accepted event with corrected data.
+        id: correctusageevent-supersedes-an-accepted-event-with-corrected-data
+      - content: ReplayUsageEvents requests reprocessing of previously ingested events.
+        id: replayusageevents-requests-reprocessing-of-previously-ingested-events
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/ingest.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/usageEvents:ingest","method":"post"},{"path":"/v1/organizations/{parent}/usageEvents:batchIngest","method":"post"},{"path":"/v1/organizations/{name}/usageEvents/{name_1}","method":"get"},{"path":"/v1/organizations/{parent}/usageEvents","method":"get"},{"path":"/v1/organizations/{name}/usageEvents/{name_1}:correct","method":"post"},{"path":"/v1/organizations/{parent}/usageEvents:replay","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

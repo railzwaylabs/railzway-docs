@@ -1,0 +1,30 @@
+---
+title: API reference
+description: REST and gRPC contracts generated from railzwayapis.
+---
+
+The Railzway public API is contract-first. Versioned Protobuf definitions in
+`railzwayapis` are the source of truth for gRPC services, REST routes, and
+generated SDKs.
+
+The interactive operation pages will be generated from the OpenAPI artifacts
+produced by Buf, so endpoint documentation cannot silently diverge from the
+public contract.
+
+## Available domains
+
+- **Organizations** — tenant configuration, currency, time zone, and ownership boundary.
+- **Organization domains** — default and verified custom API hostnames.
+- **Customers** — billable accounts, billing profiles, external identity, and metadata.
+- **Meters** — aggregation definitions that turn events into billable quantities.
+- **Usage ingestion** — idempotent events, batches, replay, and corrections.
+- **Catalog and rates** — products, rate cards, tiers, packages, and effective pricing.
+- **Contracts** — customer commercial terms and scheduled amendments.
+- **Subscriptions** — recurring product instances attached to a contract.
+- **Credits and commitments** — balances and append-only financial adjustments.
+- **Rating** — aggregated usage queries and deterministic charge previews.
+- **Invoices** — preview, finalization, immutable history, and void lifecycle.
+- **Payments** — explicit invoice collection and provider reconciliation.
+
+Before calling an endpoint, select the organization's [base URL](../essentials/base-urls)
+and create an appropriately scoped [API key](../essentials/api-keys).

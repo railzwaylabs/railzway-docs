@@ -1,0 +1,12 @@
+{
+  "title": "Railzway Docs",
+  "pages": [
+    "index",
+    "quickstart",
+    "---Learn---",
+    "concepts",
+    "essentials",
+    "---Reference---",
+    "api-reference"
+  ]
+}

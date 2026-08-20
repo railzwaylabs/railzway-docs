@@ -1,0 +1,16 @@
+---
+title: Billing lifecycle
+description: How usage becomes an immutable invoice and an explicit payment.
+---
+
+Railzway processes billing as a deterministic sequence:
+
+1. Accept append-only usage events.
+2. Aggregate events according to meter definitions.
+3. Resolve the effective rate and contract at event time.
+4. Produce rated charges and apply eligible credits.
+5. Preview, then finalize an immutable invoice.
+6. Start payment collection explicitly when required.
+
+The engine knows **what to bill**. Payment integrations determine **how to
+collect** the finalized amount.

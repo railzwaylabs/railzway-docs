@@ -1,0 +1,61 @@
+---
+title: Create and manage API keys
+description: Obtain scoped test or live credentials for server-side integrations.
+---
+
+API keys authenticate requests to the public `/v1` API. A key belongs to one
+organization, one environment, and a set of explicit `resource:action` scopes.
+
+## Where to get a key
+
+The administration flow belongs in the authenticated Railzway Console, under:
+
+```text
+Organization -> Settings -> API Keys
+```
+
+Choose a descriptive name, select `test` or `live`, and grant only the scopes
+required by the integration. A generated credential looks like:
+
+```text
+rw_test_...
+rw_live_...
+```
+
+<Callout type="warn" title="Current implementation status">
+  Fare already implements cryptographically secure key generation,
+  authentication, expiration, scope enforcement, and revocation. The current
+  Console HTTP endpoint and screen for create/revoke operations are not wired
+  yet. Until that administration boundary is completed, keys must be provisioned
+  by trusted operator tooling that invokes the application service. Do not
+  create keys by inserting plaintext directly into the database.
+</Callout>
+
+## Copy the secret immediately
+
+The full plaintext credential is returned exactly once when the key is created.
+Fare stores only its SHA-256 digest and a short prefix, so the secret cannot be
+retrieved later. If it is lost, revoke the key and create a replacement.
+
+Store the value in a secret manager and expose it to your server as an
+environment variable:
+
+```bash
+export RAILZWAY_API_KEY='rw_test_...'
+```
+
+Then authenticate requests with a bearer token:
+
+```bash
+curl 'https://acme.api.railzway.com/v1/organizations/acme/customers' \
+  -H "Authorization: Bearer $RAILZWAY_API_KEY"
+```
+
+Never put a secret key in frontend JavaScript, a mobile application, Git, logs,
+or documentation examples.
+
+## Rotation
+
+Create the replacement first, deploy it to consumers, confirm successful
+traffic, and only then revoke the previous key. Revocation and expiration fail
+closed immediately.

@@ -1,0 +1,44 @@
+---
+title: Quickstart
+description: Learn the shape of a Railzway integration from customer to invoice.
+---
+
+This guide introduces the shortest useful Railzway workflow. The exact API
+examples will be connected to the generated Fare API reference.
+
+## 1. Authenticate
+
+Obtain a scoped credential as described in [Create and manage API keys](./essentials/api-keys),
+then send it as a bearer token. Keep credentials on your server and never expose
+them in a browser or mobile client.
+
+```bash
+curl "https://ORG_ID.api.railzway.com/v1/organizations/ORG_ID/customers" \
+  -H "Authorization: Bearer $RAILZWAY_API_KEY"
+```
+
+## 2. Create a customer
+
+A customer is the billable account that owns contracts, subscriptions, credits,
+and invoices.
+
+## 3. Define metering and pricing
+
+Create a meter for the usage signal, then connect a product and effective rate
+to the commercial contract.
+
+## 4. Ingest usage
+
+Every usage event needs a stable event ID. Replaying the same event is safe;
+reusing its ID with a different payload is rejected.
+
+## 5. Preview and finalize an invoice
+
+Preview charges while a billing period is open. Finalization creates an
+immutable financial record; corrections happen through explicit follow-up
+records rather than historical edits.
+
+<Callout type="warn" title="Work in progress">
+  This scaffold intentionally avoids inventing credentials or request payloads.
+  Concrete examples will be generated from the canonical API specification.
+</Callout>

@@ -1,0 +1,684 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Organization domains",
+    "version": "1.0.0",
+    "description": "Register, verify, list, and remove hostnames that route API traffic to an organization."
+  },
+  "paths": {
+    "/v1/organizations/{parent}/domains": {
+      "get": {
+        "tags": [
+          "OrganizationDomainService"
+        ],
+        "summary": "ListOrganizationDomains lists domains assigned to an organization.",
+        "operationId": "OrganizationDomainService_ListOrganizationDomains",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListOrganizationDomainsResponse contains one page of organization domains.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.ListOrganizationDomainsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "OrganizationDomainService"
+        ],
+        "summary": "CreateOrganizationDomain registers a custom hostname for an organization.",
+        "operationId": "OrganizationDomainService_CreateOrganizationDomain",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "organizationDomainId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.organization.v1.OrganizationDomain"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OrganizationDomain is a hostname routed to one Fare organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.OrganizationDomain"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/domains/{name_1}": {
+      "get": {
+        "tags": [
+          "OrganizationDomainService"
+        ],
+        "summary": "GetOrganizationDomain returns one domain visible to the caller.",
+        "operationId": "OrganizationDomainService_GetOrganizationDomain",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OrganizationDomain is a hostname routed to one Fare organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.OrganizationDomain"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "OrganizationDomainService"
+        ],
+        "summary": "DeleteOrganizationDomain removes a custom domain. Default domains cannot be deleted.",
+        "operationId": "OrganizationDomainService_DeleteOrganizationDomain",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:\n\n    service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/domains/{name_1}/verify": {
+      "post": {
+        "tags": [
+          "OrganizationDomainService"
+        ],
+        "summary": "VerifyOrganizationDomain checks DNS and activates a custom domain.",
+        "operationId": "OrganizationDomainService_VerifyOrganizationDomain",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OrganizationDomain is a hostname routed to one Fare organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.organization.v1.OrganizationDomain"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.fare.organization.v1.ListOrganizationDomainsResponse": {
+        "type": "object",
+        "description": "ListOrganizationDomainsResponse contains one page of organization domains.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "organizationDomains": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.organization.v1.OrganizationDomain"
+            }
+          }
+        }
+      },
+      "railzway.fare.organization.v1.OrganizationDomain": {
+        "type": "object",
+        "description": "OrganizationDomain is a hostname routed to one Fare organization.",
+        "properties": {
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.fare.organization.v1.OrganizationDomainStatus"
+              }
+            ],
+            "readOnly": true
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.fare.organization.v1.OrganizationDomainType"
+              }
+            ],
+            "readOnly": true
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "verificationRecordName": {
+            "type": "string",
+            "readOnly": true
+          },
+          "verificationRecordValue": {
+            "type": "string",
+            "readOnly": true
+          },
+          "verifiedTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "hostname"
+        ]
+      },
+      "railzway.fare.organization.v1.OrganizationDomainStatus": {
+        "type": "string",
+        "description": "OrganizationDomainStatus describes domain verification and routing readiness.",
+        "enum": [
+          "ORGANIZATION_DOMAIN_STATUS_UNSPECIFIED",
+          "ORGANIZATION_DOMAIN_STATUS_PENDING_VERIFICATION",
+          "ORGANIZATION_DOMAIN_STATUS_ACTIVE",
+          "ORGANIZATION_DOMAIN_STATUS_FAILED"
+        ]
+      },
+      "railzway.fare.organization.v1.OrganizationDomainType": {
+        "type": "string",
+        "description": "OrganizationDomainType distinguishes system-owned and customer-owned hostnames.",
+        "enum": [
+          "ORGANIZATION_DOMAIN_TYPE_UNSPECIFIED",
+          "ORGANIZATION_DOMAIN_TYPE_DEFAULT",
+          "ORGANIZATION_DOMAIN_TYPE_CUSTOM"
+        ]
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "OrganizationDomainService",
+      "description": "OrganizationDomainService manages hostnames assigned to organizations."
+    }
+  ]
+}

@@ -1,0 +1,1252 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Subscriptions",
+    "version": "1.0.0",
+    "description": "Manage recurring product instances under a customer contract, including amendments and cancellation."
+  },
+  "paths": {
+    "/v1/organizations/{parent}/customers/{parent_1}/subscriptions": {
+      "get": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "ListSubscriptions lists subscriptions belonging to a customer.",
+        "operationId": "SubscriptionService_ListSubscriptions",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListSubscriptionsResponse contains a page of subscriptions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.ListSubscriptionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "CreateSubscription creates a subscription for a customer.",
+        "operationId": "SubscriptionService_CreateSubscription",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscriptionId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.subscription.v1.Subscription"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Subscription represents a customer's recurring product enrollment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.Subscription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}": {
+      "get": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "GetSubscription retrieves a subscription by resource name.",
+        "operationId": "SubscriptionService_GetSubscription",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription represents a customer's recurring product enrollment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.Subscription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:cancel": {
+      "post": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "CancelSubscription schedules or immediately applies cancellation.",
+        "operationId": "SubscriptionService_CancelSubscription",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "effectiveTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "effectiveTime"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Subscription represents a customer's recurring product enrollment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.Subscription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:scheduleAmendment": {
+      "post": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "ScheduleAmendment schedules a future subscription change.",
+        "operationId": "SubscriptionService_ScheduleAmendment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amendment": {
+                    "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionAmendment"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "amendment"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "SubscriptionAmendment represents a scheduled subscription change.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionAmendment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}": {
+      "get": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "GetAmendment retrieves a subscription amendment by resource name.",
+        "operationId": "SubscriptionService_GetAmendment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_3",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SubscriptionAmendment represents a scheduled subscription change.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionAmendment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/customers/{parent_1}/subscriptions/{parent_2}/amendments": {
+      "get": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "ListAmendments lists amendments for a subscription.",
+        "operationId": "SubscriptionService_ListAmendments",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListAmendmentsResponse contains a page of subscription amendments.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.ListAmendmentsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}:cancel": {
+      "post": {
+        "tags": [
+          "SubscriptionService"
+        ],
+        "summary": "CancelAmendment cancels an amendment that has not yet been applied.",
+        "operationId": "SubscriptionService_CancelAmendment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_3",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "SubscriptionAmendment represents a scheduled subscription change.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionAmendment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.common.v1.Decimal": {
+        "type": "object",
+        "description": "Decimal is a canonical base-10 value. Scientific notation, leading plus\nsigns, and insignificant leading or trailing zeros are not allowed.",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Canonical decimal representation, for example \"0\", \"12.5\", or \"-0.01\"."
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "railzway.common.v1.EffectivePeriod": {
+        "type": "object",
+        "description": "EffectivePeriod is a half-open validity interval: [start_time, end_time).",
+        "properties": {
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Exclusive end of the validity interval. If unset, the interval has no\nscheduled end. When set, it must be later than start_time."
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Inclusive start of the validity interval. The value must be in UTC."
+          }
+        },
+        "required": [
+          "startTime"
+        ]
+      },
+      "railzway.fare.subscription.v1.AmendmentStatus": {
+        "type": "string",
+        "description": "AmendmentStatus describes the lifecycle state of a subscription amendment.",
+        "enum": [
+          "AMENDMENT_STATUS_UNSPECIFIED",
+          "AMENDMENT_STATUS_SCHEDULED",
+          "AMENDMENT_STATUS_APPLIED",
+          "AMENDMENT_STATUS_CANCELED"
+        ]
+      },
+      "railzway.fare.subscription.v1.ListAmendmentsResponse": {
+        "type": "object",
+        "description": "ListAmendmentsResponse contains a page of subscription amendments.",
+        "properties": {
+          "amendments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionAmendment"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          }
+        }
+      },
+      "railzway.fare.subscription.v1.ListSubscriptionsResponse": {
+        "type": "object",
+        "description": "ListSubscriptionsResponse contains a page of subscriptions.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "subscriptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.subscription.v1.Subscription"
+            }
+          }
+        }
+      },
+      "railzway.fare.subscription.v1.ProrationBehavior": {
+        "type": "string",
+        "description": "ProrationBehavior controls how mid-period changes affect charges.",
+        "enum": [
+          "PRORATION_BEHAVIOR_UNSPECIFIED",
+          "PRORATION_BEHAVIOR_NONE",
+          "PRORATION_BEHAVIOR_CREDIT_AND_CHARGE"
+        ]
+      },
+      "railzway.fare.subscription.v1.Subscription": {
+        "type": "object",
+        "description": "Subscription represents a customer's recurring product enrollment.",
+        "properties": {
+          "contract": {
+            "type": "string"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "effectivePeriod": {
+            "$ref": "#/components/schemas/railzway.common.v1.EffectivePeriod"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionItem"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionStatus"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "contract",
+          "items",
+          "effectivePeriod"
+        ]
+      },
+      "railzway.fare.subscription.v1.SubscriptionAmendment": {
+        "type": "object",
+        "description": "SubscriptionAmendment represents a scheduled subscription change.",
+        "properties": {
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "effectiveTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.subscription.v1.SubscriptionItem"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "prorationBehavior": {
+            "$ref": "#/components/schemas/railzway.fare.subscription.v1.ProrationBehavior"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.fare.subscription.v1.AmendmentStatus"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "effectiveTime",
+          "items",
+          "prorationBehavior",
+          "reason"
+        ]
+      },
+      "railzway.fare.subscription.v1.SubscriptionItem": {
+        "type": "object",
+        "description": "SubscriptionItem associates a subscribed product with its quantity.",
+        "properties": {
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "product": {
+            "type": "string"
+          },
+          "quantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          }
+        },
+        "required": [
+          "product",
+          "quantity"
+        ]
+      },
+      "railzway.fare.subscription.v1.SubscriptionStatus": {
+        "type": "string",
+        "description": "SubscriptionStatus describes the lifecycle state of a subscription.",
+        "enum": [
+          "SUBSCRIPTION_STATUS_UNSPECIFIED",
+          "SUBSCRIPTION_STATUS_SCHEDULED",
+          "SUBSCRIPTION_STATUS_TRIALING",
+          "SUBSCRIPTION_STATUS_ACTIVE",
+          "SUBSCRIPTION_STATUS_CANCELED",
+          "SUBSCRIPTION_STATUS_ENDED"
+        ]
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "SubscriptionService",
+      "description": "SubscriptionService manages recurring customer access to products."
+    }
+  ]
+}

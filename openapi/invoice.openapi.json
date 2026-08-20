@@ -1,0 +1,884 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Invoices",
+    "version": "1.0.0",
+    "description": "Preview, finalize, retrieve, list, and void immutable billing-period invoices."
+  },
+  "paths": {
+    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}": {
+      "get": {
+        "tags": [
+          "InvoiceService"
+        ],
+        "summary": "GetInvoice retrieves an invoice by resource name.",
+        "operationId": "InvoiceService_GetInvoice",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invoice represents calculated charges for a customer and billing period.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.invoice.v1.Invoice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/customers/{parent_1}/invoices": {
+      "get": {
+        "tags": [
+          "InvoiceService"
+        ],
+        "summary": "ListInvoices lists invoices belonging to a customer.",
+        "operationId": "InvoiceService_ListInvoices",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListInvoicesResponse contains a page of invoices.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.invoice.v1.ListInvoicesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/customers/{parent_1}/invoices:preview": {
+      "post": {
+        "tags": [
+          "InvoiceService"
+        ],
+        "summary": "PreviewInvoice computes an invoice without persisting a finalized result.",
+        "operationId": "InvoiceService_PreviewInvoice",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contract": {
+                    "type": "string"
+                  },
+                  "periodEndTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "periodStartTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "periodStartTime",
+                  "periodEndTime"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Invoice represents calculated charges for a customer and billing period.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.invoice.v1.Invoice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:finalize": {
+      "post": {
+        "tags": [
+          "InvoiceService"
+        ],
+        "summary": "FinalizeInvoice makes an invoice immutable for financial reporting.",
+        "operationId": "InvoiceService_FinalizeInvoice",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "requestId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Invoice represents calculated charges for a customer and billing period.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.invoice.v1.Invoice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:void": {
+      "post": {
+        "tags": [
+          "InvoiceService"
+        ],
+        "summary": "VoidInvoice invalidates a finalized invoice while preserving its record.",
+        "operationId": "InvoiceService_VoidInvoice",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason",
+                  "requestId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Invoice represents calculated charges for a customer and billing period.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.invoice.v1.Invoice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.common.v1.Decimal": {
+        "type": "object",
+        "description": "Decimal is a canonical base-10 value. Scientific notation, leading plus\nsigns, and insignificant leading or trailing zeros are not allowed.",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Canonical decimal representation, for example \"0\", \"12.5\", or \"-0.01\"."
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "railzway.common.v1.Money": {
+        "type": "object",
+        "description": "Money is an exact monetary value in an ISO 4217 currency.",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal",
+            "description": "Exact amount in the specified currency."
+          },
+          "currencyCode": {
+            "type": "string",
+            "description": "Three-letter ISO 4217 currency code."
+          }
+        },
+        "required": [
+          "currencyCode",
+          "amount"
+        ]
+      },
+      "railzway.fare.invoice.v1.Invoice": {
+        "type": "object",
+        "description": "Invoice represents calculated charges for a customer and billing period.",
+        "properties": {
+          "contract": {
+            "type": "string"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "credit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          },
+          "finalizeTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.invoice.v1.InvoiceLine"
+            },
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "periodEndTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "periodStartTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.fare.invoice.v1.InvoiceStatus"
+              }
+            ],
+            "readOnly": true
+          },
+          "subtotal": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          },
+          "tax": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          },
+          "total": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "contract",
+          "periodStartTime",
+          "periodEndTime"
+        ]
+      },
+      "railzway.fare.invoice.v1.InvoiceLine": {
+        "type": "object",
+        "description": "InvoiceLine records one rated charge and the rate used to calculate it.",
+        "properties": {
+          "credit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "product": {
+            "type": "string"
+          },
+          "quantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          },
+          "rateId": {
+            "type": "string"
+          },
+          "subtotal": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          },
+          "total": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          },
+          "unitPrice": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          }
+        },
+        "required": [
+          "product",
+          "rateId",
+          "quantity"
+        ]
+      },
+      "railzway.fare.invoice.v1.InvoiceStatus": {
+        "type": "string",
+        "description": "InvoiceStatus describes the lifecycle state of an invoice.",
+        "enum": [
+          "INVOICE_STATUS_UNSPECIFIED",
+          "INVOICE_STATUS_DRAFT",
+          "INVOICE_STATUS_FINALIZED",
+          "INVOICE_STATUS_VOID"
+        ]
+      },
+      "railzway.fare.invoice.v1.ListInvoicesResponse": {
+        "type": "object",
+        "description": "ListInvoicesResponse contains a page of invoices.",
+        "properties": {
+          "invoices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.invoice.v1.Invoice"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          }
+        }
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "InvoiceService",
+      "description": "InvoiceService previews and manages customer invoices."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "railzway-docs",
+  "version": "0.0.17",
+  "private": true,
+  "packageManager": "pnpm@10.27.0",
+  "scripts": {
+    "api:generate": "tsx scripts/generate-api-docs.ts",
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "types:check": "NODE_ENV=production next typegen && tsc --noEmit",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "cnfast": "^0.1.0",
+    "fumadocs-core": "16.14.5",
+    "fumadocs-mdx": "15.3.0",
+    "fumadocs-openapi": "^11.2.4",
+    "fumadocs-ui": "npm:@fumadocs/base-ui@16.14.5",
+    "lucide-react": "^1.31.0",
+    "next": "16.3.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "shiki": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "16.3.0",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.12",
+    "typescript": "^6.0.3"
+  }
+}

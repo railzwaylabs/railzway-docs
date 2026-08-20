@@ -1,0 +1,81 @@
+---
+title: Custom domains
+description: Route an organization through a verified customer-owned hostname.
+---
+
+An organization may use a customer-owned hostname such as:
+
+```text
+https://billing-api.acme.com
+```
+
+The custom hostname addresses the same organization and `/v1` resources as its
+default hostname. It does not create a new tenant or require a separate API key.
+
+## 1. Register the hostname
+
+Use the organization's active default hostname and an API key with
+`organization:write` permission:
+
+```bash
+curl -X POST \
+  'https://acme.api.railzway.com/v1/organizations/acme/domains' \
+  -H "Authorization: Bearer $RAILZWAY_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "organization_domain_id": "billing-api",
+    "organization_domain": {
+      "hostname": "billing-api.acme.com"
+    }
+  }'
+```
+
+The domain starts in `PENDING_VERIFICATION`. The response contains
+`verification_record_name` and `verification_record_value`.
+
+## 2. Configure DNS
+
+Create the returned TXT record exactly as provided. For example:
+
+```text
+Type   TXT
+Name   _railzway-verification.billing-api.acme.com
+Value  railzway-verification=<generated-token>
+```
+
+Route application traffic to the Railzway installation as well. A typical
+hosted setup creates a CNAME from `billing-api.acme.com` to the organization's
+default hostname. Self-hosted deployments may use another ingress target.
+
+<Callout type="warn" title="TLS and ingress are deployment responsibilities">
+  Fare verifies ownership using the TXT record and resolves active hostnames at
+  the application boundary. The surrounding platform must still route the
+  hostname and provision a valid TLS certificate.
+</Callout>
+
+## 3. Verify ownership
+
+After DNS propagation, request live verification:
+
+```bash
+curl -X POST \
+  'https://acme.api.railzway.com/v1/organizations/acme/domains/billing-api/verify' \
+  -H "Authorization: Bearer $RAILZWAY_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{}'
+```
+
+A matching TXT record changes the domain to `ACTIVE`. A missing record returns
+`FAILED_PRECONDITION`; wait for DNS propagation and retry the same request.
+
+## 4. Use the custom base URL
+
+After the domain is active and TLS/ingress is ready:
+
+```bash
+curl 'https://billing-api.acme.com/v1/organizations/acme/customers' \
+  -H "Authorization: Bearer $RAILZWAY_API_KEY"
+```
+
+Default domains cannot be deleted. Custom hostnames are globally unique and can
+only be used with credentials belonging to the same organization.

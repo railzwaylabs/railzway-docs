@@ -1,0 +1,790 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Customers",
+    "version": "1.0.0",
+    "description": "Manage billable customer accounts, external identity mapping, billing profiles, currency, and metadata."
+  },
+  "paths": {
+    "/v1/organizations/{parent}/customers": {
+      "get": {
+        "tags": [
+          "CustomerService"
+        ],
+        "summary": "ListCustomers lists customers in an organization.",
+        "operationId": "CustomerService_ListCustomers",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListCustomersResponse contains a page of customers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.customer.v1.ListCustomersResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CustomerService"
+        ],
+        "summary": "CreateCustomer creates a customer in an organization.",
+        "operationId": "CustomerService_CreateCustomer",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.customer.v1.Customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Customer represents a billable account within an organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.customer.v1.Customer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}": {
+      "get": {
+        "tags": [
+          "CustomerService"
+        ],
+        "summary": "GetCustomer retrieves a customer by resource name.",
+        "operationId": "CustomerService_GetCustomer",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer represents a billable account within an organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.customer.v1.Customer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{customer.name}/customers/{customer.name_1}": {
+      "patch": {
+        "tags": [
+          "CustomerService"
+        ],
+        "summary": "UpdateCustomer updates selected customer fields.",
+        "operationId": "CustomerService_UpdateCustomer",
+        "parameters": [
+          {
+            "name": "customer.name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customer.name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.customer.v1.Customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Customer represents a billable account within an organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.customer.v1.Customer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}:archive": {
+      "post": {
+        "tags": [
+          "CustomerService"
+        ],
+        "summary": "ArchiveCustomer prevents future use of a customer account.",
+        "operationId": "CustomerService_ArchiveCustomer",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "requestId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Customer represents a billable account within an organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.customer.v1.Customer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "google.type.PostalAddress": {
+        "type": "object",
+        "description": "Represents a postal address, such as for postal delivery or payments\naddresses. With a postal address, a postal service can deliver items to a\npremise, P.O. box, or similar. A postal address is not intended to model\ngeographical locations like roads, towns, or mountains.\n\nIn typical usage, an address would be created by user input or from importing\nexisting data, depending on the type of process.\n\nAdvice on address input or editing:\n\n - Use an internationalization-ready address widget such as\n https://github.com/google/libaddressinput.\n - Users should not be presented with UI elements for input or editing of\n fields outside countries where that field is used.\n\nFor more guidance on how to use this schema, see:\nhttps://support.google.com/business/answer/6397478.",
+        "properties": {
+          "addressLines": {
+            "type": "array",
+            "description": "Unstructured address lines describing the lower levels of an address.\n\nBecause values in `address_lines` do not have type information and may\nsometimes contain multiple values in a single field (for example,\n\"Austin, TX\"), it is important that the line order is clear. The order of\naddress lines should be \"envelope order\" for the country or region of the\naddress. In places where this can vary (for example, Japan),\n`address_language` is used to make it explicit (for example, \"ja\" for\nlarge-to-small ordering and \"ja-Latn\" or \"en\" for small-to-large). In this\nway, the most specific line of an address can be selected based on the\nlanguage.\n\nThe minimum permitted structural representation of an address consists\nof a `region_code` with all remaining information placed in the\n`address_lines`. It would be possible to format such an address very\napproximately without geocoding, but no semantic reasoning could be\nmade about any of the address components until it was at least\npartially resolved.\n\nCreating an address only containing a `region_code` and `address_lines` and\nthen geocoding is the recommended way to handle completely unstructured\naddresses (as opposed to guessing which parts of the address should be\nlocalities or administrative areas).",
+            "items": {
+              "type": "string"
+            }
+          },
+          "administrativeArea": {
+            "type": "string",
+            "description": "Optional. Highest administrative subdivision which is used for postal\naddresses of a country or region.\nFor example, this can be a state, a province, an oblast, or a prefecture.\nFor Spain, this is the province and not the autonomous\ncommunity (for example, \"Barcelona\" and not \"Catalonia\").\nMany countries don't use an administrative area in postal addresses. For\nexample, in Switzerland, this should be left unpopulated."
+          },
+          "languageCode": {
+            "type": "string",
+            "description": "Optional. BCP-47 language code of the contents of this address (if\nknown). This is often the UI language of the input form or is expected\nto match one of the languages used in the address' country/region, or their\ntransliterated equivalents.\nThis can affect formatting in certain countries, but is not critical\nto the correctness of the data and will never affect any validation or\nother non-formatting related operations.\n\nIf this value is not known, it should be omitted (rather than specifying a\npossibly incorrect default).\n\nExamples: \"zh-Hant\", \"ja\", \"ja-Latn\", \"en\"."
+          },
+          "locality": {
+            "type": "string",
+            "description": "Optional. Generally refers to the city or town portion of the address.\nExamples: US city, IT comune, UK post town.\nIn regions of the world where localities are not well defined or do not fit\ninto this structure well, leave `locality` empty and use `address_lines`."
+          },
+          "organization": {
+            "type": "string",
+            "description": "Optional. The name of the organization at the address."
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Optional. Postal code of the address. Not all countries use or require\npostal codes to be present, but where they are used, they may trigger\nadditional validation with other parts of the address (for example,\nstate or zip code validation in the United States)."
+          },
+          "recipients": {
+            "type": "array",
+            "description": "Optional. The recipient at the address.\nThis field may, under certain circumstances, contain multiline information.\nFor example, it might contain \"care of\" information.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "regionCode": {
+            "type": "string",
+            "description": "Required. CLDR region code of the country/region of the address. This\nis never inferred and it is up to the user to ensure the value is\ncorrect. See https://cldr.unicode.org/ and\nhttps://www.unicode.org/cldr/charts/30/supplemental/territory_information.html\nfor details. Example: \"CH\" for Switzerland."
+          },
+          "revision": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The schema revision of the `PostalAddress`. This must be set to 0, which is\nthe latest revision.\n\nAll new revisions **must** be backward compatible with old revisions."
+          },
+          "sortingCode": {
+            "type": "string",
+            "description": "Optional. Additional, country-specific, sorting code. This is not used\nin most regions. Where it is used, the value is either a string like\n\"CEDEX\", optionally followed by a number (for example, \"CEDEX 7\"), or just\na number alone, representing the \"sector code\" (Jamaica), \"delivery area\nindicator\" (Malawi) or \"post office indicator\" (Côte d'Ivoire)."
+          },
+          "sublocality": {
+            "type": "string",
+            "description": "Optional. Sublocality of the address.\nFor example, this can be a neighborhood, borough, or district."
+          }
+        }
+      },
+      "railzway.fare.customer.v1.BillingProfile": {
+        "type": "object",
+        "description": "BillingProfile contains structured identity and location data used for\ninvoicing, tax presentation, and payment-provider eligibility.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/google.type.PostalAddress"
+          },
+          "billingEmail": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "legalName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "legalName",
+          "billingEmail",
+          "address",
+          "countryCode"
+        ]
+      },
+      "railzway.fare.customer.v1.Customer": {
+        "type": "object",
+        "description": "Customer represents a billable account within an organization.",
+        "properties": {
+          "archived": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "billingProfile": {
+            "$ref": "#/components/schemas/railzway.fare.customer.v1.BillingProfile"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "currencyCode": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "externalId",
+          "displayName",
+          "currencyCode",
+          "billingProfile"
+        ]
+      },
+      "railzway.fare.customer.v1.ListCustomersResponse": {
+        "type": "object",
+        "description": "ListCustomersResponse contains a page of customers.",
+        "properties": {
+          "customers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.customer.v1.Customer"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          }
+        }
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "CustomerService",
+      "description": "CustomerService manages billable customer accounts."
+    }
+  ]
+}

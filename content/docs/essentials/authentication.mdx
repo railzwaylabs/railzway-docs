@@ -1,0 +1,19 @@
+---
+title: Authentication
+description: Authenticate server-side requests to Railzway.
+---
+
+Railzway API credentials identify an organization and its permitted operations.
+Send credentials using the `Authorization` header:
+
+```http
+Authorization: Bearer rw_live_...
+```
+
+See [Create and manage API keys](./api-keys) for key environments, scopes,
+one-time secret display, rotation, and current Console availability.
+
+<Callout type="warn" title="Keep credentials secret">
+  Only use API credentials from trusted server environments. Never commit them
+  to Git or embed them in client-side applications.
+</Callout>

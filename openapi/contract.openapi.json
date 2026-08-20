@@ -1,0 +1,1434 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Contracts",
+    "version": "1.0.0",
+    "description": "Bind customers to effective-dated commercial terms and manage immutable scheduled amendments."
+  },
+  "paths": {
+    "/v1/organizations/{parent}/customers/{parent_1}/contracts": {
+      "get": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "ListContracts lists contracts belonging to a customer.",
+        "operationId": "ContractService_ListContracts",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListContractsResponse contains a page of contracts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.ListContractsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "CreateContract creates a negotiated agreement for a customer.",
+        "operationId": "ContractService_CreateContract",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contractId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.contract.v1.Contract"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Contract defines a customer's negotiated billing agreement.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.Contract"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}": {
+      "get": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "GetContract retrieves a contract by resource name.",
+        "operationId": "ContractService_GetContract",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract defines a customer's negotiated billing agreement.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.Contract"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:scheduleAmendment": {
+      "post": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "ScheduleAmendment schedules a future contract change.",
+        "operationId": "ContractService_ScheduleAmendment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amendment": {
+                    "$ref": "#/components/schemas/railzway.fare.contract.v1.ContractAmendment"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "amendment"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ContractAmendment represents a scheduled change to a contract.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.ContractAmendment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}": {
+      "get": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "GetAmendment retrieves a contract amendment by resource name.",
+        "operationId": "ContractService_GetAmendment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_3",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ContractAmendment represents a scheduled change to a contract.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.ContractAmendment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/customers/{parent_1}/contracts/{parent_2}/amendments": {
+      "get": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "ListAmendments lists amendments for a contract.",
+        "operationId": "ContractService_ListAmendments",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListAmendmentsResponse contains a page of contract amendments.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.ListAmendmentsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}:cancel": {
+      "post": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "CancelAmendment cancels an amendment that has not yet been applied.",
+        "operationId": "ContractService_CancelAmendment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_3",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ContractAmendment represents a scheduled change to a contract.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.ContractAmendment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:end": {
+      "post": {
+        "tags": [
+          "ContractService"
+        ],
+        "summary": "EndContract schedules or records the end of a contract.",
+        "operationId": "ContractService_EndContract",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "effectiveTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "effectiveTime"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Contract defines a customer's negotiated billing agreement.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.contract.v1.Contract"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.common.v1.Decimal": {
+        "type": "object",
+        "description": "Decimal is a canonical base-10 value. Scientific notation, leading plus\nsigns, and insignificant leading or trailing zeros are not allowed.",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Canonical decimal representation, for example \"0\", \"12.5\", or \"-0.01\"."
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "railzway.common.v1.EffectivePeriod": {
+        "type": "object",
+        "description": "EffectivePeriod is a half-open validity interval: [start_time, end_time).",
+        "properties": {
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Exclusive end of the validity interval. If unset, the interval has no\nscheduled end. When set, it must be later than start_time."
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Inclusive start of the validity interval. The value must be in UTC."
+          }
+        },
+        "required": [
+          "startTime"
+        ]
+      },
+      "railzway.common.v1.Money": {
+        "type": "object",
+        "description": "Money is an exact monetary value in an ISO 4217 currency.",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal",
+            "description": "Exact amount in the specified currency."
+          },
+          "currencyCode": {
+            "type": "string",
+            "description": "Three-letter ISO 4217 currency code."
+          }
+        },
+        "required": [
+          "currencyCode",
+          "amount"
+        ]
+      },
+      "railzway.fare.catalog.v1.FlatRate": {
+        "type": "object",
+        "description": "FlatRate charges a fixed amount independently of quantity.",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          }
+        },
+        "required": [
+          "amount"
+        ]
+      },
+      "railzway.fare.catalog.v1.PackageRate": {
+        "type": "object",
+        "description": "PackageRate charges by fixed-size packages of quantity.",
+        "properties": {
+          "packagePrice": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "packageSize": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          }
+        },
+        "required": [
+          "packageSize",
+          "packagePrice"
+        ]
+      },
+      "railzway.fare.catalog.v1.Tier": {
+        "type": "object",
+        "description": "Tier defines one quantity interval in a tiered price.",
+        "properties": {
+          "endQuantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          },
+          "flatAmount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "startQuantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          },
+          "unitPrice": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          }
+        },
+        "required": [
+          "startQuantity",
+          "unitPrice"
+        ]
+      },
+      "railzway.fare.catalog.v1.TieredRate": {
+        "type": "object",
+        "description": "TieredRate applies ordered price tiers to a quantity.",
+        "properties": {
+          "tiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.catalog.v1.Tier"
+            }
+          }
+        },
+        "required": [
+          "tiers"
+        ]
+      },
+      "railzway.fare.catalog.v1.UnitRate": {
+        "type": "object",
+        "description": "UnitRate charges an exact price for each unit_size of quantity.",
+        "properties": {
+          "unitPrice": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "unitSize": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          }
+        },
+        "required": [
+          "unitPrice",
+          "unitSize"
+        ]
+      },
+      "railzway.fare.contract.v1.AmendmentStatus": {
+        "type": "string",
+        "description": "AmendmentStatus describes the lifecycle state of a contract amendment.",
+        "enum": [
+          "AMENDMENT_STATUS_UNSPECIFIED",
+          "AMENDMENT_STATUS_SCHEDULED",
+          "AMENDMENT_STATUS_APPLIED",
+          "AMENDMENT_STATUS_CANCELED"
+        ]
+      },
+      "railzway.fare.contract.v1.Contract": {
+        "type": "object",
+        "description": "Contract defines a customer's negotiated billing agreement.",
+        "properties": {
+          "billingAnchorDay": {
+            "type": "string"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "effectivePeriod": {
+            "$ref": "#/components/schemas/railzway.common.v1.EffectivePeriod"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rateCard": {
+            "type": "string"
+          },
+          "rateOverrides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.contract.v1.RateOverride"
+            }
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.fare.contract.v1.ContractStatus"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "rateCard",
+          "effectivePeriod",
+          "billingAnchorDay"
+        ]
+      },
+      "railzway.fare.contract.v1.ContractAmendment": {
+        "type": "object",
+        "description": "ContractAmendment represents a scheduled change to a contract.",
+        "properties": {
+          "contractEndTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "effectiveTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rateCard": {
+            "type": "string"
+          },
+          "rateOverrides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.contract.v1.RateOverride"
+            }
+          },
+          "reason": {
+            "type": "string"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.fare.contract.v1.AmendmentStatus"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "effectiveTime",
+          "reason"
+        ]
+      },
+      "railzway.fare.contract.v1.ContractStatus": {
+        "type": "string",
+        "description": "ContractStatus describes the lifecycle state of a contract.",
+        "enum": [
+          "CONTRACT_STATUS_UNSPECIFIED",
+          "CONTRACT_STATUS_SCHEDULED",
+          "CONTRACT_STATUS_ACTIVE",
+          "CONTRACT_STATUS_ENDED",
+          "CONTRACT_STATUS_CANCELED"
+        ]
+      },
+      "railzway.fare.contract.v1.ListAmendmentsResponse": {
+        "type": "object",
+        "description": "ListAmendmentsResponse contains a page of contract amendments.",
+        "properties": {
+          "amendments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.contract.v1.ContractAmendment"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          }
+        }
+      },
+      "railzway.fare.contract.v1.ListContractsResponse": {
+        "type": "object",
+        "description": "ListContractsResponse contains a page of contracts.",
+        "properties": {
+          "contracts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.contract.v1.Contract"
+            }
+          },
+          "nextPageToken": {
+            "type": "string"
+          }
+        }
+      },
+      "railzway.fare.contract.v1.RateOverride": {
+        "type": "object",
+        "description": "RateOverride replaces a catalog rate for a negotiated scope and period.",
+        "properties": {
+          "baseRateId": {
+            "type": "string"
+          },
+          "dimensionValues": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "effectivePeriod": {
+            "$ref": "#/components/schemas/railzway.common.v1.EffectivePeriod"
+          },
+          "flat": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.FlatRate"
+          },
+          "package": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.PackageRate"
+          },
+          "product": {
+            "type": "string"
+          },
+          "tiered": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.TieredRate"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.UnitRate"
+          }
+        },
+        "required": [
+          "product",
+          "effectivePeriod"
+        ],
+        "oneOf": [
+          {
+            "type": "object",
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "flat"
+                  ]
+                },
+                {
+                  "required": [
+                    "unit"
+                  ]
+                },
+                {
+                  "required": [
+                    "tiered"
+                  ]
+                },
+                {
+                  "required": [
+                    "package"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "flat": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.FlatRate"
+              }
+            },
+            "required": [
+              "flat"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "unit": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.UnitRate"
+              }
+            },
+            "required": [
+              "unit"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "tiered": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.TieredRate"
+              }
+            },
+            "required": [
+              "tiered"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "package": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.PackageRate"
+              }
+            },
+            "required": [
+              "package"
+            ]
+          }
+        ]
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "ContractService",
+      "description": "ContractService manages negotiated billing agreements and their amendments."
+    }
+  ]
+}

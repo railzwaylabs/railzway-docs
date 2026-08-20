@@ -1,0 +1,65 @@
+---
+title: Contracts
+full: true
+_openapi:
+  preload:
+    - ./openapi/contract.openapi.json
+  toc:
+    - depth: 2
+      title: ListContracts lists contracts belonging to a customer.
+      url: '#listcontracts-lists-contracts-belonging-to-a-customer'
+    - depth: 2
+      title: CreateContract creates a negotiated agreement for a customer.
+      url: '#createcontract-creates-a-negotiated-agreement-for-a-customer'
+    - depth: 2
+      title: GetContract retrieves a contract by resource name.
+      url: '#getcontract-retrieves-a-contract-by-resource-name'
+    - depth: 2
+      title: ScheduleAmendment schedules a future contract change.
+      url: '#scheduleamendment-schedules-a-future-contract-change'
+    - depth: 2
+      title: GetAmendment retrieves a contract amendment by resource name.
+      url: '#getamendment-retrieves-a-contract-amendment-by-resource-name'
+    - depth: 2
+      title: ListAmendments lists amendments for a contract.
+      url: '#listamendments-lists-amendments-for-a-contract'
+    - depth: 2
+      title: CancelAmendment cancels an amendment that has not yet been applied.
+      url: '#cancelamendment-cancels-an-amendment-that-has-not-yet-been-applied'
+    - depth: 2
+      title: EndContract schedules or records the end of a contract.
+      url: '#endcontract-schedules-or-records-the-end-of-a-contract'
+  structuredData:
+    headings:
+      - content: ListContracts lists contracts belonging to a customer.
+        id: listcontracts-lists-contracts-belonging-to-a-customer
+      - content: CreateContract creates a negotiated agreement for a customer.
+        id: createcontract-creates-a-negotiated-agreement-for-a-customer
+      - content: GetContract retrieves a contract by resource name.
+        id: getcontract-retrieves-a-contract-by-resource-name
+      - content: ScheduleAmendment schedules a future contract change.
+        id: scheduleamendment-schedules-a-future-contract-change
+      - content: GetAmendment retrieves a contract amendment by resource name.
+        id: getamendment-retrieves-a-contract-amendment-by-resource-name
+      - content: ListAmendments lists amendments for a contract.
+        id: listamendments-lists-amendments-for-a-contract
+      - content: CancelAmendment cancels an amendment that has not yet been applied.
+        id: cancelamendment-cancels-an-amendment-that-has-not-yet-been-applied
+      - content: EndContract schedules or records the end of a contract.
+        id: endcontract-schedules-or-records-the-end-of-a-contract
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/contract.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/customers/{parent_1}/contracts","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/contracts","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:scheduleAmendment","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/contracts/{parent_2}/amendments","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}:cancel","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:end","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

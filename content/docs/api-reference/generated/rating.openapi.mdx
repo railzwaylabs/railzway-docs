@@ -1,0 +1,35 @@
+---
+title: Rating
+full: true
+_openapi:
+  preload:
+    - ./openapi/rating.openapi.json
+  toc:
+    - depth: 2
+      title: QueryUsage returns aggregated usage for a reporting period.
+      url: '#queryusage-returns-aggregated-usage-for-a-reporting-period'
+    - depth: 2
+      title: PreviewCharges rates usage without creating or finalizing an invoice.
+      url: '#previewcharges-rates-usage-without-creating-or-finalizing-an-invoice'
+  structuredData:
+    headings:
+      - content: QueryUsage returns aggregated usage for a reporting period.
+        id: queryusage-returns-aggregated-usage-for-a-reporting-period
+      - content: PreviewCharges rates usage without creating or finalizing an invoice.
+        id: previewcharges-rates-usage-without-creating-or-finalizing-an-invoice
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/rating.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{customer}/customers/{customer_1}/usage","method":"get"},{"path":"/v1/organizations/{customer}/customers/{customer_1}/charges:preview","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

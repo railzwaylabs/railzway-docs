@@ -1,0 +1,50 @@
+---
+title: Customers
+full: true
+_openapi:
+  preload:
+    - ./openapi/customer.openapi.json
+  toc:
+    - depth: 2
+      title: ListCustomers lists customers in an organization.
+      url: '#listcustomers-lists-customers-in-an-organization'
+    - depth: 2
+      title: CreateCustomer creates a customer in an organization.
+      url: '#createcustomer-creates-a-customer-in-an-organization'
+    - depth: 2
+      title: GetCustomer retrieves a customer by resource name.
+      url: '#getcustomer-retrieves-a-customer-by-resource-name'
+    - depth: 2
+      title: UpdateCustomer updates selected customer fields.
+      url: '#updatecustomer-updates-selected-customer-fields'
+    - depth: 2
+      title: ArchiveCustomer prevents future use of a customer account.
+      url: '#archivecustomer-prevents-future-use-of-a-customer-account'
+  structuredData:
+    headings:
+      - content: ListCustomers lists customers in an organization.
+        id: listcustomers-lists-customers-in-an-organization
+      - content: CreateCustomer creates a customer in an organization.
+        id: createcustomer-creates-a-customer-in-an-organization
+      - content: GetCustomer retrieves a customer by resource name.
+        id: getcustomer-retrieves-a-customer-by-resource-name
+      - content: UpdateCustomer updates selected customer fields.
+        id: updatecustomer-updates-selected-customer-fields
+      - content: ArchiveCustomer prevents future use of a customer account.
+        id: archivecustomer-prevents-future-use-of-a-customer-account
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/customer.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/customers","method":"get"},{"path":"/v1/organizations/{parent}/customers","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}","method":"get"},{"path":"/v1/organizations/{customer.name}/customers/{customer.name_1}","method":"patch"},{"path":"/v1/organizations/{name}/customers/{name_1}:archive","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

@@ -1,0 +1,60 @@
+---
+title: Catalog and rates
+full: true
+_openapi:
+  preload:
+    - ./openapi/catalog.openapi.json
+  toc:
+    - depth: 2
+      title: Lists products owned by an organization.
+      url: '#lists-products-owned-by-an-organization'
+    - depth: 2
+      title: Creates a product that can appear as an invoice line item.
+      url: '#creates-a-product-that-can-appear-as-an-invoice-line-item'
+    - depth: 2
+      title: Gets a product by resource name.
+      url: '#gets-a-product-by-resource-name'
+    - depth: 2
+      title: Lists rate cards owned by an organization.
+      url: '#lists-rate-cards-owned-by-an-organization'
+    - depth: 2
+      title: Creates a reusable price book for customer contracts.
+      url: '#creates-a-reusable-price-book-for-customer-contracts'
+    - depth: 2
+      title: Gets a rate card by resource name.
+      url: '#gets-a-rate-card-by-resource-name'
+    - depth: 2
+      title: Adds an immutable, effective-dated rate to a rate card.
+      url: '#adds-an-immutable-effective-dated-rate-to-a-rate-card'
+  structuredData:
+    headings:
+      - content: Lists products owned by an organization.
+        id: lists-products-owned-by-an-organization
+      - content: Creates a product that can appear as an invoice line item.
+        id: creates-a-product-that-can-appear-as-an-invoice-line-item
+      - content: Gets a product by resource name.
+        id: gets-a-product-by-resource-name
+      - content: Lists rate cards owned by an organization.
+        id: lists-rate-cards-owned-by-an-organization
+      - content: Creates a reusable price book for customer contracts.
+        id: creates-a-reusable-price-book-for-customer-contracts
+      - content: Gets a rate card by resource name.
+        id: gets-a-rate-card-by-resource-name
+      - content: Adds an immutable, effective-dated rate to a rate card.
+        id: adds-an-immutable-effective-dated-rate-to-a-rate-card
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/catalog.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/products","method":"get"},{"path":"/v1/organizations/{parent}/products","method":"post"},{"path":"/v1/organizations/{name}/products/{name_1}","method":"get"},{"path":"/v1/organizations/{parent}/rateCards","method":"get"},{"path":"/v1/organizations/{parent}/rateCards","method":"post"},{"path":"/v1/organizations/{name}/rateCards/{name_1}","method":"get"},{"path":"/v1/organizations/{parent}/rateCards/{parent_1}/rates","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

@@ -1,0 +1,450 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Rating",
+    "version": "1.0.0",
+    "description": "Query aggregated usage and preview deterministic charges using the effective contract and rates."
+  },
+  "paths": {
+    "/v1/organizations/{customer}/customers/{customer_1}/usage": {
+      "get": {
+        "tags": [
+          "RatingService"
+        ],
+        "summary": "QueryUsage returns aggregated usage for a reporting period.",
+        "operationId": "RatingService_QueryUsage",
+        "parameters": [
+          {
+            "name": "customer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customer_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "period.startTime",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "period.endTime",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "meters",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "QueryUsageResponse contains aggregated usage results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.rating.v1.QueryUsageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{customer}/customers/{customer_1}/charges:preview": {
+      "post": {
+        "tags": [
+          "RatingService"
+        ],
+        "summary": "PreviewCharges rates usage without creating or finalizing an invoice.",
+        "operationId": "RatingService_PreviewCharges",
+        "parameters": [
+          {
+            "name": "customer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customer_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contract": {
+                    "type": "string"
+                  },
+                  "period": {
+                    "$ref": "#/components/schemas/railzway.fare.rating.v1.TimeRange"
+                  }
+                },
+                "required": [
+                  "period"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "PreviewChargesResponse contains rated charges and their total.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.rating.v1.PreviewChargesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.common.v1.Decimal": {
+        "type": "object",
+        "description": "Decimal is a canonical base-10 value. Scientific notation, leading plus\nsigns, and insignificant leading or trailing zeros are not allowed.",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Canonical decimal representation, for example \"0\", \"12.5\", or \"-0.01\"."
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "railzway.common.v1.Money": {
+        "type": "object",
+        "description": "Money is an exact monetary value in an ISO 4217 currency.",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal",
+            "description": "Exact amount in the specified currency."
+          },
+          "currencyCode": {
+            "type": "string",
+            "description": "Three-letter ISO 4217 currency code."
+          }
+        },
+        "required": [
+          "currencyCode",
+          "amount"
+        ]
+      },
+      "railzway.fare.rating.v1.PreviewChargesResponse": {
+        "type": "object",
+        "description": "PreviewChargesResponse contains rated charges and their total.",
+        "properties": {
+          "asOfTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "charges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.rating.v1.RatedCharge"
+            }
+          },
+          "total": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          }
+        }
+      },
+      "railzway.fare.rating.v1.QueryUsageResponse": {
+        "type": "object",
+        "description": "QueryUsageResponse contains aggregated usage results.",
+        "properties": {
+          "usage": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.rating.v1.UsageAggregate"
+            }
+          }
+        }
+      },
+      "railzway.fare.rating.v1.RatedCharge": {
+        "type": "object",
+        "description": "RatedCharge records the price and amount selected for aggregated usage.",
+        "properties": {
+          "credit": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "net": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "product": {
+            "type": "string"
+          },
+          "quantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          },
+          "rateId": {
+            "type": "string"
+          },
+          "subtotal": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          }
+        }
+      },
+      "railzway.fare.rating.v1.TimeRange": {
+        "type": "object",
+        "description": "TimeRange is a half-open reporting interval used for usage and rating queries.",
+        "properties": {
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "startTime",
+          "endTime"
+        ]
+      },
+      "railzway.fare.rating.v1.UsageAggregate": {
+        "type": "object",
+        "description": "UsageAggregate contains a measured quantity for one dimension set.",
+        "properties": {
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "meter": {
+            "type": "string"
+          },
+          "quantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          }
+        }
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "RatingService",
+      "description": "RatingService aggregates usage and previews monetary charges."
+    }
+  ]
+}

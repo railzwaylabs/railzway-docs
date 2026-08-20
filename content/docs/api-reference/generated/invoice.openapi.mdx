@@ -1,0 +1,52 @@
+---
+title: Invoices
+full: true
+_openapi:
+  preload:
+    - ./openapi/invoice.openapi.json
+  toc:
+    - depth: 2
+      title: GetInvoice retrieves an invoice by resource name.
+      url: '#getinvoice-retrieves-an-invoice-by-resource-name'
+    - depth: 2
+      title: ListInvoices lists invoices belonging to a customer.
+      url: '#listinvoices-lists-invoices-belonging-to-a-customer'
+    - depth: 2
+      title: PreviewInvoice computes an invoice without persisting a finalized result.
+      url: '#previewinvoice-computes-an-invoice-without-persisting-a-finalized-result'
+    - depth: 2
+      title: FinalizeInvoice makes an invoice immutable for financial reporting.
+      url: '#finalizeinvoice-makes-an-invoice-immutable-for-financial-reporting'
+    - depth: 2
+      title: VoidInvoice invalidates a finalized invoice while preserving its record.
+      url: '#voidinvoice-invalidates-a-finalized-invoice-while-preserving-its-record'
+  structuredData:
+    headings:
+      - content: GetInvoice retrieves an invoice by resource name.
+        id: getinvoice-retrieves-an-invoice-by-resource-name
+      - content: ListInvoices lists invoices belonging to a customer.
+        id: listinvoices-lists-invoices-belonging-to-a-customer
+      - content: PreviewInvoice computes an invoice without persisting a finalized
+          result.
+        id: previewinvoice-computes-an-invoice-without-persisting-a-finalized-result
+      - content: FinalizeInvoice makes an invoice immutable for financial reporting.
+        id: finalizeinvoice-makes-an-invoice-immutable-for-financial-reporting
+      - content: VoidInvoice invalidates a finalized invoice while preserving its
+          record.
+        id: voidinvoice-invalidates-a-finalized-invoice-while-preserving-its-record
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/invoice.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/invoices","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/invoices:preview","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:finalize","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:void","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

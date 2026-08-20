@@ -1,0 +1,1193 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Catalog and rates",
+    "version": "1.0.0",
+    "description": "Model products, rate cards, effective pricing periods, tiers, packages, and dimensional rates."
+  },
+  "paths": {
+    "/v1/organizations/{parent}/products": {
+      "get": {
+        "tags": [
+          "CatalogService"
+        ],
+        "summary": "Lists products owned by an organization.",
+        "operationId": "CatalogService_ListProducts",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListProductsResponse contains one page of products.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.catalog.v1.ListProductsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CatalogService"
+        ],
+        "summary": "Creates a product that can appear as an invoice line item.",
+        "operationId": "CatalogService_CreateProduct",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.Product"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Product is a sellable SKU and the basic unit of an invoice line.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.catalog.v1.Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/products/{name_1}": {
+      "get": {
+        "tags": [
+          "CatalogService"
+        ],
+        "summary": "Gets a product by resource name.",
+        "operationId": "CatalogService_GetProduct",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product is a sellable SKU and the basic unit of an invoice line.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.catalog.v1.Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/rateCards": {
+      "get": {
+        "tags": [
+          "CatalogService"
+        ],
+        "summary": "Lists rate cards owned by an organization.",
+        "operationId": "CatalogService_ListRateCards",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListRateCardsResponse contains one page of rate cards.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.catalog.v1.ListRateCardsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CatalogService"
+        ],
+        "summary": "Creates a reusable price book for customer contracts.",
+        "operationId": "CatalogService_CreateRateCard",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rateCardId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.RateCard"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "RateCard is a currency-specific collection of product rates.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.catalog.v1.RateCard"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/rateCards/{name_1}": {
+      "get": {
+        "tags": [
+          "CatalogService"
+        ],
+        "summary": "Gets a rate card by resource name.",
+        "operationId": "CatalogService_GetRateCard",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RateCard is a currency-specific collection of product rates.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.catalog.v1.RateCard"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/rateCards/{parent_1}/rates": {
+      "post": {
+        "tags": [
+          "CatalogService"
+        ],
+        "summary": "Adds an immutable, effective-dated rate to a rate card.",
+        "operationId": "CatalogService_AddRate",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.Rate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Rate assigns one pricing model to a product for a non-overlapping period.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.fare.catalog.v1.Rate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.common.v1.Decimal": {
+        "type": "object",
+        "description": "Decimal is a canonical base-10 value. Scientific notation, leading plus\nsigns, and insignificant leading or trailing zeros are not allowed.",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Canonical decimal representation, for example \"0\", \"12.5\", or \"-0.01\"."
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "railzway.common.v1.EffectivePeriod": {
+        "type": "object",
+        "description": "EffectivePeriod is a half-open validity interval: [start_time, end_time).",
+        "properties": {
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Exclusive end of the validity interval. If unset, the interval has no\nscheduled end. When set, it must be later than start_time."
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Inclusive start of the validity interval. The value must be in UTC."
+          }
+        },
+        "required": [
+          "startTime"
+        ]
+      },
+      "railzway.common.v1.Money": {
+        "type": "object",
+        "description": "Money is an exact monetary value in an ISO 4217 currency.",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal",
+            "description": "Exact amount in the specified currency."
+          },
+          "currencyCode": {
+            "type": "string",
+            "description": "Three-letter ISO 4217 currency code."
+          }
+        },
+        "required": [
+          "currencyCode",
+          "amount"
+        ]
+      },
+      "railzway.fare.catalog.v1.FlatRate": {
+        "type": "object",
+        "description": "FlatRate charges a fixed amount independently of quantity.",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          }
+        },
+        "required": [
+          "amount"
+        ]
+      },
+      "railzway.fare.catalog.v1.ListProductsResponse": {
+        "type": "object",
+        "description": "ListProductsResponse contains one page of products.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.catalog.v1.Product"
+            }
+          }
+        }
+      },
+      "railzway.fare.catalog.v1.ListRateCardsResponse": {
+        "type": "object",
+        "description": "ListRateCardsResponse contains one page of rate cards.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "rateCards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.catalog.v1.RateCard"
+            }
+          }
+        }
+      },
+      "railzway.fare.catalog.v1.PackageRate": {
+        "type": "object",
+        "description": "PackageRate charges by fixed-size packages of quantity.",
+        "properties": {
+          "packagePrice": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "packageSize": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          }
+        },
+        "required": [
+          "packageSize",
+          "packagePrice"
+        ]
+      },
+      "railzway.fare.catalog.v1.Product": {
+        "type": "object",
+        "description": "Product is a sellable SKU and the basic unit of an invoice line.",
+        "properties": {
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "meter": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "presentationGroupKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pricingGroupKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.ProductType"
+          }
+        },
+        "required": [
+          "displayName",
+          "type"
+        ]
+      },
+      "railzway.fare.catalog.v1.ProductType": {
+        "type": "string",
+        "description": "ProductType identifies how a product contributes charges to an invoice.",
+        "enum": [
+          "PRODUCT_TYPE_UNSPECIFIED",
+          "PRODUCT_TYPE_USAGE",
+          "PRODUCT_TYPE_SUBSCRIPTION",
+          "PRODUCT_TYPE_FIXED",
+          "PRODUCT_TYPE_COMPOSITE"
+        ]
+      },
+      "railzway.fare.catalog.v1.Rate": {
+        "type": "object",
+        "description": "Rate assigns one pricing model to a product for a non-overlapping period.",
+        "properties": {
+          "dimensionValues": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "effectivePeriod": {
+            "$ref": "#/components/schemas/railzway.common.v1.EffectivePeriod"
+          },
+          "flat": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.FlatRate"
+          },
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "package": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.PackageRate"
+          },
+          "product": {
+            "type": "string"
+          },
+          "tiered": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.TieredRate"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/railzway.fare.catalog.v1.UnitRate"
+          }
+        },
+        "required": [
+          "product",
+          "effectivePeriod"
+        ],
+        "oneOf": [
+          {
+            "type": "object",
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "flat"
+                  ]
+                },
+                {
+                  "required": [
+                    "unit"
+                  ]
+                },
+                {
+                  "required": [
+                    "tiered"
+                  ]
+                },
+                {
+                  "required": [
+                    "package"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "flat": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.FlatRate"
+              }
+            },
+            "required": [
+              "flat"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "unit": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.UnitRate"
+              }
+            },
+            "required": [
+              "unit"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "tiered": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.TieredRate"
+              }
+            },
+            "required": [
+              "tiered"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "package": {
+                "$ref": "#/components/schemas/railzway.fare.catalog.v1.PackageRate"
+              }
+            },
+            "required": [
+              "package"
+            ]
+          }
+        ]
+      },
+      "railzway.fare.catalog.v1.RateCard": {
+        "type": "object",
+        "description": "RateCard is a currency-specific collection of product rates.",
+        "properties": {
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "currencyCode": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.catalog.v1.Rate"
+            },
+            "readOnly": true
+          }
+        },
+        "required": [
+          "displayName",
+          "currencyCode"
+        ]
+      },
+      "railzway.fare.catalog.v1.Tier": {
+        "type": "object",
+        "description": "Tier defines one quantity interval in a tiered price.",
+        "properties": {
+          "endQuantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          },
+          "flatAmount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "startQuantity": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          },
+          "unitPrice": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          }
+        },
+        "required": [
+          "startQuantity",
+          "unitPrice"
+        ]
+      },
+      "railzway.fare.catalog.v1.TieredRate": {
+        "type": "object",
+        "description": "TieredRate applies ordered price tiers to a quantity.",
+        "properties": {
+          "tiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.fare.catalog.v1.Tier"
+            }
+          }
+        },
+        "required": [
+          "tiers"
+        ]
+      },
+      "railzway.fare.catalog.v1.UnitRate": {
+        "type": "object",
+        "description": "UnitRate charges an exact price for each unit_size of quantity.",
+        "properties": {
+          "unitPrice": {
+            "$ref": "#/components/schemas/railzway.common.v1.Money"
+          },
+          "unitSize": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal"
+          }
+        },
+        "required": [
+          "unitPrice",
+          "unitSize"
+        ]
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "CatalogService",
+      "description": "CatalogService manages products, reusable rate cards, and effective-dated prices."
+    }
+  ]
+}

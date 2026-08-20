@@ -1,0 +1,45 @@
+---
+title: Meters
+full: true
+_openapi:
+  preload:
+    - ./openapi/meter.openapi.json
+  toc:
+    - depth: 2
+      title: ListMeters lists meters in an organization.
+      url: '#listmeters-lists-meters-in-an-organization'
+    - depth: 2
+      title: CreateMeter creates a usage meter.
+      url: '#createmeter-creates-a-usage-meter'
+    - depth: 2
+      title: GetMeter retrieves a meter by resource name.
+      url: '#getmeter-retrieves-a-meter-by-resource-name'
+    - depth: 2
+      title: UpdateMeter updates selected meter fields.
+      url: '#updatemeter-updates-selected-meter-fields'
+  structuredData:
+    headings:
+      - content: ListMeters lists meters in an organization.
+        id: listmeters-lists-meters-in-an-organization
+      - content: CreateMeter creates a usage meter.
+        id: createmeter-creates-a-usage-meter
+      - content: GetMeter retrieves a meter by resource name.
+        id: getmeter-retrieves-a-meter-by-resource-name
+      - content: UpdateMeter updates selected meter fields.
+        id: updatemeter-updates-selected-meter-fields
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/meter.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/meters","method":"get"},{"path":"/v1/organizations/{parent}/meters","method":"post"},{"path":"/v1/organizations/{name}/meters/{name_1}","method":"get"},{"path":"/v1/organizations/{meter.name}/meters/{meter.name_1}","method":"patch"}]} showTitle showDescription />
+    </>
+  );
+}

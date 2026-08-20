@@ -1,0 +1,52 @@
+---
+title: Errors
+description: Handle Railzway's stable HTTP error envelope and status codes.
+---
+
+Railzway returns errors using one JSON envelope across public REST endpoints:
+
+```json
+{
+  "error": {
+    "code": "INVALID_ARGUMENT",
+    "message": "The request contains an invalid argument",
+    "details": []
+  }
+}
+```
+
+Use the HTTP status for the broad outcome and `error.code` for stable application
+logic. Treat `message` as developer-facing context rather than a value to parse.
+
+## Common responses
+
+| HTTP | Code | Meaning |
+| --- | --- | --- |
+| `400` | `INVALID_ARGUMENT` | The request is malformed or contains invalid input. |
+| `401` | `UNAUTHENTICATED` | The API key is missing, invalid, expired, or revoked. |
+| `403` | `PERMISSION_DENIED` | The key is valid but lacks scope, or its organization does not match the hostname. |
+| `404` | `NOT_FOUND` | The requested resource is not visible to the caller. |
+| `409` | `ALREADY_EXISTS` or `ABORTED` | The operation conflicts with current state or an existing resource. |
+| `412` | `FAILED_PRECONDITION` | A required condition, such as DNS verification, has not been satisfied. |
+| `500` | `INTERNAL` | An unexpected server error occurred. |
+
+Validation errors may include structured field details:
+
+```json
+{
+  "error": {
+    "code": "INVALID_ARGUMENT",
+    "message": "Request validation failed",
+    "details": [
+      {
+        "field": "currencyCode",
+        "rule": "iso4217",
+        "message": "currencyCode must be a valid ISO 4217 code"
+      }
+    ]
+  }
+}
+```
+
+Do not retry `400`, `401`, or `403` unchanged. Correct the request, credential,
+or granted scope first.

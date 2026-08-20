@@ -1,0 +1,110 @@
+---
+title: Payments
+full: true
+_openapi:
+  preload:
+    - ./openapi/payment.openapi.json
+  toc:
+    - depth: 2
+      title: ListProviderConnections lists an organization's provider connections.
+      url: '#listproviderconnections-lists-an-organizations-provider-connections'
+    - depth: 2
+      title: CreateProviderConnection connects an organization merchant account.
+      url: '#createproviderconnection-connects-an-organization-merchant-account'
+    - depth: 2
+      title: GetProviderConnection retrieves a provider connection.
+      url: '#getproviderconnection-retrieves-a-provider-connection'
+    - depth: 2
+      title: UpdateProviderConnection updates non-secret connection settings.
+      url: '#updateproviderconnection-updates-non-secret-connection-settings'
+    - depth: 2
+      title: DisableProviderConnection stops new payments from using a connection.
+      url: '#disableproviderconnection-stops-new-payments-from-using-a-connection'
+    - depth: 2
+      title: GetRoutingPolicy retrieves an organization's routing policy.
+      url: '#getroutingpolicy-retrieves-an-organizations-routing-policy'
+    - depth: 2
+      title: UpdateRoutingPolicy replaces selected routing policy fields.
+      url: '#updateroutingpolicy-replaces-selected-routing-policy-fields'
+    - depth: 2
+      title: ListPaymentMethods lists a customer's payment methods.
+      url: '#listpaymentmethods-lists-a-customers-payment-methods'
+    - depth: 2
+      title: CreatePaymentMethod stores a provider token as a reusable method.
+      url: '#createpaymentmethod-stores-a-provider-token-as-a-reusable-method'
+    - depth: 2
+      title: GetPaymentMethod retrieves a payment method.
+      url: '#getpaymentmethod-retrieves-a-payment-method'
+    - depth: 2
+      title: DisablePaymentMethod prevents future collection with a method.
+      url: '#disablepaymentmethod-prevents-future-collection-with-a-method'
+    - depth: 2
+      title: ListPayments lists a customer's payments.
+      url: '#listpayments-lists-a-customers-payments'
+    - depth: 2
+      title: CreatePayment starts collection for a finalized invoice.
+      url: '#createpayment-starts-collection-for-a-finalized-invoice'
+    - depth: 2
+      title: GetPayment retrieves a payment.
+      url: '#getpayment-retrieves-a-payment'
+    - depth: 2
+      title: RetryPayment explicitly retries an unsuccessful collection.
+      url: '#retrypayment-explicitly-retries-an-unsuccessful-collection'
+    - depth: 2
+      title: GetPaymentAttempt retrieves an immutable payment attempt.
+      url: '#getpaymentattempt-retrieves-an-immutable-payment-attempt'
+    - depth: 2
+      title: ListPaymentAttempts lists the attempts for a payment.
+      url: '#listpaymentattempts-lists-the-attempts-for-a-payment'
+  structuredData:
+    headings:
+      - content: ListProviderConnections lists an organization's provider connections.
+        id: listproviderconnections-lists-an-organizations-provider-connections
+      - content: CreateProviderConnection connects an organization merchant account.
+        id: createproviderconnection-connects-an-organization-merchant-account
+      - content: GetProviderConnection retrieves a provider connection.
+        id: getproviderconnection-retrieves-a-provider-connection
+      - content: UpdateProviderConnection updates non-secret connection settings.
+        id: updateproviderconnection-updates-non-secret-connection-settings
+      - content: DisableProviderConnection stops new payments from using a connection.
+        id: disableproviderconnection-stops-new-payments-from-using-a-connection
+      - content: GetRoutingPolicy retrieves an organization's routing policy.
+        id: getroutingpolicy-retrieves-an-organizations-routing-policy
+      - content: UpdateRoutingPolicy replaces selected routing policy fields.
+        id: updateroutingpolicy-replaces-selected-routing-policy-fields
+      - content: ListPaymentMethods lists a customer's payment methods.
+        id: listpaymentmethods-lists-a-customers-payment-methods
+      - content: CreatePaymentMethod stores a provider token as a reusable method.
+        id: createpaymentmethod-stores-a-provider-token-as-a-reusable-method
+      - content: GetPaymentMethod retrieves a payment method.
+        id: getpaymentmethod-retrieves-a-payment-method
+      - content: DisablePaymentMethod prevents future collection with a method.
+        id: disablepaymentmethod-prevents-future-collection-with-a-method
+      - content: ListPayments lists a customer's payments.
+        id: listpayments-lists-a-customers-payments
+      - content: CreatePayment starts collection for a finalized invoice.
+        id: createpayment-starts-collection-for-a-finalized-invoice
+      - content: GetPayment retrieves a payment.
+        id: getpayment-retrieves-a-payment
+      - content: RetryPayment explicitly retries an unsuccessful collection.
+        id: retrypayment-explicitly-retries-an-unsuccessful-collection
+      - content: GetPaymentAttempt retrieves an immutable payment attempt.
+        id: getpaymentattempt-retrieves-an-immutable-payment-attempt
+      - content: ListPaymentAttempts lists the attempts for a payment.
+        id: listpaymentattempts-lists-the-attempts-for-a-payment
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/payment.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/providerConnections","method":"get"},{"path":"/v1/organizations/{parent}/providerConnections","method":"post"},{"path":"/v1/organizations/{name}/providerConnections/{name_1}","method":"get"},{"path":"/v1/organizations/{provider_connection.name}/providerConnections/{provider_connection.name_1}","method":"patch"},{"path":"/v1/organizations/{name}/providerConnections/{name_1}:disable","method":"post"},{"path":"/v1/organizations/{name}/routingPolicy","method":"get"},{"path":"/v1/organizations/{routing_policy.name}/routingPolicy","method":"patch"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/paymentMethods","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/paymentMethods","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/paymentMethods/{name_2}","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/paymentMethods/{name_2}:disable","method":"post"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/payments","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/payments","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/payments/{name_2}","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/payments/{name_2}:retry","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/payments/{name_2}/attempts/{name_3}","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/payments/{parent_2}/attempts","method":"get"}]} showTitle showDescription />
+    </>
+  );
+}

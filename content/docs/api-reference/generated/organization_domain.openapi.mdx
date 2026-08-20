@@ -1,0 +1,53 @@
+---
+title: Organization domains
+full: true
+_openapi:
+  preload:
+    - ./openapi/organization_domain.openapi.json
+  toc:
+    - depth: 2
+      title: ListOrganizationDomains lists domains assigned to an organization.
+      url: '#listorganizationdomains-lists-domains-assigned-to-an-organization'
+    - depth: 2
+      title: CreateOrganizationDomain registers a custom hostname for an organization.
+      url: '#createorganizationdomain-registers-a-custom-hostname-for-an-organization'
+    - depth: 2
+      title: GetOrganizationDomain returns one domain visible to the caller.
+      url: '#getorganizationdomain-returns-one-domain-visible-to-the-caller'
+    - depth: 2
+      title: DeleteOrganizationDomain removes a custom domain. Default domains cannot
+        be deleted.
+      url: '#deleteorganizationdomain-removes-a-custom-domain-default-domains-cannot-be-deleted'
+    - depth: 2
+      title: VerifyOrganizationDomain checks DNS and activates a custom domain.
+      url: '#verifyorganizationdomain-checks-dns-and-activates-a-custom-domain'
+  structuredData:
+    headings:
+      - content: ListOrganizationDomains lists domains assigned to an organization.
+        id: listorganizationdomains-lists-domains-assigned-to-an-organization
+      - content: CreateOrganizationDomain registers a custom hostname for an
+          organization.
+        id: createorganizationdomain-registers-a-custom-hostname-for-an-organization
+      - content: GetOrganizationDomain returns one domain visible to the caller.
+        id: getorganizationdomain-returns-one-domain-visible-to-the-caller
+      - content: DeleteOrganizationDomain removes a custom domain. Default domains
+          cannot be deleted.
+        id: deleteorganizationdomain-removes-a-custom-domain-default-domains-cannot-be-deleted
+      - content: VerifyOrganizationDomain checks DNS and activates a custom domain.
+        id: verifyorganizationdomain-checks-dns-and-activates-a-custom-domain
+    contents: []
+---
+
+{/* Generated from railzwayapis. Do not edit by hand. */}
+
+export default function Layout(props) {
+  const { APIPage, OpenAPIPage } = props.components ?? {};
+  // "APIPage" is the old name from v10, this allows both for backward compatibility
+  const Comp = OpenAPIPage ?? APIPage;
+  return (
+    <>
+      {props.children}
+      <Comp document="./openapi/organization_domain.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/domains","method":"get"},{"path":"/v1/organizations/{parent}/domains","method":"post"},{"path":"/v1/organizations/{name}/domains/{name_1}","method":"get"},{"path":"/v1/organizations/{name}/domains/{name_1}","method":"delete"},{"path":"/v1/organizations/{name}/domains/{name_1}/verify","method":"post"}]} showTitle showDescription />
+    </>
+  );
+}

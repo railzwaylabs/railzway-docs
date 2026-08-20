@@ -1,0 +1,14 @@
+export const apiSpecifications = [
+  { source: 'railzway/fare/organization/v1/organization.openapi.json', filename: 'organization.openapi.json', title: 'Organizations', description: 'Create and manage the organization boundary that owns billing configuration, currency, time zone, and API resources.' },
+  { source: 'railzway/fare/organization/v1/organization_domain.openapi.json', filename: 'organization_domain.openapi.json', title: 'Organization domains', description: 'Register, verify, list, and remove hostnames that route API traffic to an organization.' },
+  { source: 'railzway/fare/customer/v1/customer.openapi.json', filename: 'customer.openapi.json', title: 'Customers', description: 'Manage billable customer accounts, external identity mapping, billing profiles, currency, and metadata.' },
+  { source: 'railzway/fare/meter/v1/meter.openapi.json', filename: 'meter.openapi.json', title: 'Meters', description: 'Define how raw usage events are grouped and aggregated into billable quantities.' },
+  { source: 'railzway/fare/ingest/v1/ingest.openapi.json', filename: 'ingest.openapi.json', title: 'Usage ingestion', description: 'Ingest idempotent single or batch usage events and create append-only corrections.' },
+  { source: 'railzway/fare/catalog/v1/catalog.openapi.json', filename: 'catalog.openapi.json', title: 'Catalog and rates', description: 'Model products, rate cards, effective pricing periods, tiers, packages, and dimensional rates.' },
+  { source: 'railzway/fare/contract/v1/contract.openapi.json', filename: 'contract.openapi.json', title: 'Contracts', description: 'Bind customers to effective-dated commercial terms and manage immutable scheduled amendments.' },
+  { source: 'railzway/fare/subscription/v1/subscription.openapi.json', filename: 'subscription.openapi.json', title: 'Subscriptions', description: 'Manage recurring product instances under a customer contract, including amendments and cancellation.' },
+  { source: 'railzway/fare/credit/v1/credit.openapi.json', filename: 'credit.openapi.json', title: 'Credits and commitments', description: 'Grant promotional credits, record paid commitments, inspect balances, and preserve financial history.' },
+  { source: 'railzway/fare/rating/v1/rating.openapi.json', filename: 'rating.openapi.json', title: 'Rating', description: 'Query aggregated usage and preview deterministic charges using the effective contract and rates.' },
+  { source: 'railzway/fare/invoice/v1/invoice.openapi.json', filename: 'invoice.openapi.json', title: 'Invoices', description: 'Preview, finalize, retrieve, list, and void immutable billing-period invoices.' },
+  { source: 'railzway/payment/v1/payment.openapi.json', filename: 'payment.openapi.json', title: 'Payments', description: 'Collect finalized invoices explicitly and track provider routing, attempts, reconciliation, and outcomes.' },
+] as const;

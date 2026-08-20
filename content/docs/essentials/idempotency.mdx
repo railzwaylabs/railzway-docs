@@ -1,0 +1,13 @@
+---
+title: Idempotency
+description: Retry mutations and usage ingestion without duplicating effects.
+---
+
+Mutating operations accept a `request_id` scoped to an organization. Reuse the
+same value when retrying the same logical operation.
+
+Usage ingestion uses `organization + event_id` as its unique identity:
+
+- replaying the same payload returns a duplicate result safely;
+- reusing an event ID with different content is rejected;
+- corrections create a replacement event instead of editing accepted history.

@@ -1,0 +1,2650 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Payments",
+    "version": "1.0.0",
+    "description": "Collect finalized invoices explicitly and track provider routing, attempts, reconciliation, and outcomes."
+  },
+  "paths": {
+    "/v1/organizations/{parent}/providerConnections": {
+      "get": {
+        "tags": [
+          "PaymentConfigurationService"
+        ],
+        "summary": "ListProviderConnections lists an organization's provider connections.",
+        "operationId": "PaymentConfigurationService_ListProviderConnections",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListProviderConnectionsResponse contains a page of provider connections.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ListProviderConnectionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PaymentConfigurationService"
+        ],
+        "summary": "CreateProviderConnection connects an organization merchant account.",
+        "operationId": "PaymentConfigurationService_CreateProviderConnection",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "credential": {
+                    "$ref": "#/components/schemas/railzway.payment.v1.ProviderCredential"
+                  },
+                  "providerConnection": {
+                    "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
+                  },
+                  "providerConnectionId": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "providerConnection",
+                  "providerConnectionId",
+                  "credential"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ProviderConnection represents an organization's merchant account at a\npayment provider. It never contains provider credentials.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/providerConnections/{name_1}": {
+      "get": {
+        "tags": [
+          "PaymentConfigurationService"
+        ],
+        "summary": "GetProviderConnection retrieves a provider connection.",
+        "operationId": "PaymentConfigurationService_GetProviderConnection",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ProviderConnection represents an organization's merchant account at a\npayment provider. It never contains provider credentials.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{provider_connection.name}/providerConnections/{provider_connection.name_1}": {
+      "patch": {
+        "tags": [
+          "PaymentConfigurationService"
+        ],
+        "summary": "UpdateProviderConnection updates non-secret connection settings.",
+        "operationId": "PaymentConfigurationService_UpdateProviderConnection",
+        "parameters": [
+          {
+            "name": "provider_connection.name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "provider_connection.name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ProviderConnection represents an organization's merchant account at a\npayment provider. It never contains provider credentials.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/providerConnections/{name_1}:disable": {
+      "post": {
+        "tags": [
+          "PaymentConfigurationService"
+        ],
+        "summary": "DisableProviderConnection stops new payments from using a connection.",
+        "operationId": "PaymentConfigurationService_DisableProviderConnection",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ProviderConnection represents an organization's merchant account at a\npayment provider. It never contains provider credentials.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/routingPolicy": {
+      "get": {
+        "tags": [
+          "PaymentConfigurationService"
+        ],
+        "summary": "GetRoutingPolicy retrieves an organization's routing policy.",
+        "operationId": "PaymentConfigurationService_GetRoutingPolicy",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RoutingPolicy contains the ordered provider rules for an organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.RoutingPolicy"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{routing_policy.name}/routingPolicy": {
+      "patch": {
+        "tags": [
+          "PaymentConfigurationService"
+        ],
+        "summary": "UpdateRoutingPolicy replaces selected routing policy fields.",
+        "operationId": "PaymentConfigurationService_UpdateRoutingPolicy",
+        "parameters": [
+          {
+            "name": "routing_policy.name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.payment.v1.RoutingPolicy"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "RoutingPolicy contains the ordered provider rules for an organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.RoutingPolicy"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/customers/{parent_1}/paymentMethods": {
+      "get": {
+        "tags": [
+          "PaymentMethodService"
+        ],
+        "summary": "ListPaymentMethods lists a customer's payment methods.",
+        "operationId": "PaymentMethodService_ListPaymentMethods",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListPaymentMethodsResponse contains a page of payment methods.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ListPaymentMethodsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PaymentMethodService"
+        ],
+        "summary": "CreatePaymentMethod stores a provider token as a reusable method.",
+        "operationId": "PaymentMethodService_CreatePaymentMethod",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "paymentMethod": {
+                    "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethod"
+                  },
+                  "paymentMethodId": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  },
+                  "setupToken": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "paymentMethod",
+                  "paymentMethodId",
+                  "setupToken"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "PaymentMethod is a non-sensitive reference to a customer payment instrument\nstored by one provider connection.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethod"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/paymentMethods/{name_2}": {
+      "get": {
+        "tags": [
+          "PaymentMethodService"
+        ],
+        "summary": "GetPaymentMethod retrieves a payment method.",
+        "operationId": "PaymentMethodService_GetPaymentMethod",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PaymentMethod is a non-sensitive reference to a customer payment instrument\nstored by one provider connection.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethod"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/paymentMethods/{name_2}:disable": {
+      "post": {
+        "tags": [
+          "PaymentMethodService"
+        ],
+        "summary": "DisablePaymentMethod prevents future collection with a method.",
+        "operationId": "PaymentMethodService_DisablePaymentMethod",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "reason"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "PaymentMethod is a non-sensitive reference to a customer payment instrument\nstored by one provider connection.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethod"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/customers/{parent_1}/payments": {
+      "get": {
+        "tags": [
+          "PaymentService"
+        ],
+        "summary": "ListPayments lists a customer's payments.",
+        "operationId": "PaymentService_ListPayments",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListPaymentsResponse contains a page of payments.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ListPaymentsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PaymentService"
+        ],
+        "summary": "CreatePayment starts collection for a finalized invoice.",
+        "operationId": "PaymentService_CreatePayment",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "candidatePaymentMethods",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "recurring",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "offSession",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/railzway.payment.v1.Payment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Payment represents collection of the immutable outstanding amount of one\nfinalized invoice.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.Payment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/payments/{name_2}": {
+      "get": {
+        "tags": [
+          "PaymentService"
+        ],
+        "summary": "GetPayment retrieves a payment.",
+        "operationId": "PaymentService_GetPayment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment represents collection of the immutable outstanding amount of one\nfinalized invoice.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.Payment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/payments/{name_2}:retry": {
+      "post": {
+        "tags": [
+          "PaymentService"
+        ],
+        "summary": "RetryPayment explicitly retries an unsuccessful collection.",
+        "operationId": "PaymentService_RetryPayment",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "candidatePaymentMethods": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requestId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "requestId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Payment represents collection of the immutable outstanding amount of one\nfinalized invoice.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.Payment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{name}/customers/{name_1}/payments/{name_2}/attempts/{name_3}": {
+      "get": {
+        "tags": [
+          "PaymentService"
+        ],
+        "summary": "GetPaymentAttempt retrieves an immutable payment attempt.",
+        "operationId": "PaymentService_GetPaymentAttempt",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_3",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PaymentAttempt is an immutable record of one provider charge interaction.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.PaymentAttempt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/organizations/{parent}/customers/{parent_1}/payments/{parent_2}/attempts": {
+      "get": {
+        "tags": [
+          "PaymentService"
+        ],
+        "summary": "ListPaymentAttempts lists the attempts for a payment.",
+        "operationId": "PaymentService_ListPaymentAttempts",
+        "parameters": [
+          {
+            "name": "parent",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_1",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent_2",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListPaymentAttemptsResponse contains a page of payment attempts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.payment.v1.ListPaymentAttemptsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed or contains an invalid argument.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INVALID_ARGUMENT",
+                    "message": "The request contains an invalid argument",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication is missing, expired, revoked, or otherwise invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "UNAUTHENTICATED",
+                    "message": "A valid API key is required",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The credential is valid but lacks permission for this operation or organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "PERMISSION_DENIED",
+                    "message": "Permission denied",
+                    "details": []
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error response using Fare's stable HTTP error envelope.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "railzway.common.v1.Decimal": {
+        "type": "object",
+        "description": "Decimal is a canonical base-10 value. Scientific notation, leading plus\nsigns, and insignificant leading or trailing zeros are not allowed.",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Canonical decimal representation, for example \"0\", \"12.5\", or \"-0.01\"."
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "railzway.common.v1.Money": {
+        "type": "object",
+        "description": "Money is an exact monetary value in an ISO 4217 currency.",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/railzway.common.v1.Decimal",
+            "description": "Exact amount in the specified currency."
+          },
+          "currencyCode": {
+            "type": "string",
+            "description": "Three-letter ISO 4217 currency code."
+          }
+        },
+        "required": [
+          "currencyCode",
+          "amount"
+        ]
+      },
+      "railzway.payment.v1.ListPaymentAttemptsResponse": {
+        "type": "object",
+        "description": "ListPaymentAttemptsResponse contains a page of payment attempts.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "paymentAttempts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.payment.v1.PaymentAttempt"
+            }
+          }
+        }
+      },
+      "railzway.payment.v1.ListPaymentMethodsResponse": {
+        "type": "object",
+        "description": "ListPaymentMethodsResponse contains a page of payment methods.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "paymentMethods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethod"
+            }
+          }
+        }
+      },
+      "railzway.payment.v1.ListPaymentsResponse": {
+        "type": "object",
+        "description": "ListPaymentsResponse contains a page of payments.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.payment.v1.Payment"
+            }
+          }
+        }
+      },
+      "railzway.payment.v1.ListProviderConnectionsResponse": {
+        "type": "object",
+        "description": "ListProviderConnectionsResponse contains a page of provider connections.",
+        "properties": {
+          "nextPageToken": {
+            "type": "string"
+          },
+          "providerConnections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnection"
+            }
+          }
+        }
+      },
+      "railzway.payment.v1.Payment": {
+        "type": "object",
+        "description": "Payment represents collection of the immutable outstanding amount of one\nfinalized invoice.",
+        "properties": {
+          "amount": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.common.v1.Money"
+              }
+            ],
+            "readOnly": true
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "failureCategory": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.PaymentFailureCategory"
+              }
+            ],
+            "readOnly": true
+          },
+          "failureMessage": {
+            "type": "string",
+            "readOnly": true
+          },
+          "idempotencyKey": {
+            "type": "string",
+            "readOnly": true
+          },
+          "invoice": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "offSession": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "paymentMethod": {
+            "type": "string",
+            "readOnly": true
+          },
+          "providerConnection": {
+            "type": "string",
+            "readOnly": true
+          },
+          "recurring": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.PaymentStatus"
+              }
+            ],
+            "readOnly": true
+          },
+          "succeedTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "invoice"
+        ]
+      },
+      "railzway.payment.v1.PaymentAttempt": {
+        "type": "object",
+        "description": "PaymentAttempt is an immutable record of one provider charge interaction.",
+        "properties": {
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "failureCategory": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.PaymentFailureCategory"
+              }
+            ],
+            "readOnly": true
+          },
+          "failureMessage": {
+            "type": "string",
+            "readOnly": true
+          },
+          "idempotencyKey": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "outcome": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.PaymentAttemptOutcome"
+              }
+            ],
+            "readOnly": true
+          },
+          "paymentMethod": {
+            "type": "string",
+            "readOnly": true
+          },
+          "providerConnection": {
+            "type": "string",
+            "readOnly": true
+          },
+          "providerTransactionReference": {
+            "type": "string",
+            "readOnly": true
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "railzway.payment.v1.PaymentAttemptOutcome": {
+        "type": "string",
+        "description": "PaymentAttemptOutcome describes the result of one provider interaction.",
+        "enum": [
+          "PAYMENT_ATTEMPT_OUTCOME_UNSPECIFIED",
+          "PAYMENT_ATTEMPT_OUTCOME_PROCESSING",
+          "PAYMENT_ATTEMPT_OUTCOME_SUCCEEDED",
+          "PAYMENT_ATTEMPT_OUTCOME_FAILED",
+          "PAYMENT_ATTEMPT_OUTCOME_AMBIGUOUS"
+        ]
+      },
+      "railzway.payment.v1.PaymentFailureCategory": {
+        "type": "string",
+        "description": "PaymentFailureCategory determines whether and how collection can continue.",
+        "enum": [
+          "PAYMENT_FAILURE_CATEGORY_UNSPECIFIED",
+          "PAYMENT_FAILURE_CATEGORY_TECHNICAL",
+          "PAYMENT_FAILURE_CATEGORY_BUSINESS_DECLINE",
+          "PAYMENT_FAILURE_CATEGORY_INSUFFICIENT_FUNDS",
+          "PAYMENT_FAILURE_CATEGORY_AUTHENTICATION_REQUIRED",
+          "PAYMENT_FAILURE_CATEGORY_FRAUD_REJECTION",
+          "PAYMENT_FAILURE_CATEGORY_INVALID_PAYMENT_METHOD",
+          "PAYMENT_FAILURE_CATEGORY_NO_ELIGIBLE_PROVIDER"
+        ]
+      },
+      "railzway.payment.v1.PaymentMethod": {
+        "type": "object",
+        "description": "PaymentMethod is a non-sensitive reference to a customer payment instrument\nstored by one provider connection.",
+        "properties": {
+          "countryCode": {
+            "type": "string",
+            "readOnly": true
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "displayName": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "offSessionEnabled": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "providerConnection": {
+            "type": "string"
+          },
+          "providerReference": {
+            "type": "string",
+            "readOnly": true
+          },
+          "recurringEnabled": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethodStatus"
+              }
+            ],
+            "readOnly": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethodType"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "providerConnection",
+          "type"
+        ]
+      },
+      "railzway.payment.v1.PaymentMethodStatus": {
+        "type": "string",
+        "description": "PaymentMethodStatus describes whether a stored method can be used.",
+        "enum": [
+          "PAYMENT_METHOD_STATUS_UNSPECIFIED",
+          "PAYMENT_METHOD_STATUS_PENDING",
+          "PAYMENT_METHOD_STATUS_ACTIVE",
+          "PAYMENT_METHOD_STATUS_REQUIRES_ACTION",
+          "PAYMENT_METHOD_STATUS_DISABLED"
+        ]
+      },
+      "railzway.payment.v1.PaymentMethodType": {
+        "type": "string",
+        "description": "PaymentMethodType identifies a provider-neutral payment instrument family.",
+        "enum": [
+          "PAYMENT_METHOD_TYPE_UNSPECIFIED",
+          "PAYMENT_METHOD_TYPE_CARD",
+          "PAYMENT_METHOD_TYPE_BANK_DEBIT",
+          "PAYMENT_METHOD_TYPE_BANK_TRANSFER",
+          "PAYMENT_METHOD_TYPE_DIGITAL_WALLET",
+          "PAYMENT_METHOD_TYPE_REAL_TIME_PAYMENT"
+        ]
+      },
+      "railzway.payment.v1.PaymentStatus": {
+        "type": "string",
+        "description": "PaymentStatus describes the collection lifecycle for an invoice.",
+        "enum": [
+          "PAYMENT_STATUS_UNSPECIFIED",
+          "PAYMENT_STATUS_PENDING",
+          "PAYMENT_STATUS_PROCESSING",
+          "PAYMENT_STATUS_REQUIRES_ACTION",
+          "PAYMENT_STATUS_SUCCEEDED",
+          "PAYMENT_STATUS_FAILED",
+          "PAYMENT_STATUS_RECONCILING"
+        ]
+      },
+      "railzway.payment.v1.ProviderCapabilities": {
+        "type": "object",
+        "description": "ProviderCapabilities describes payment operations supported by a connection.",
+        "properties": {
+          "countryCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "currencyCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "paymentMethodTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethodType"
+            }
+          },
+          "supportsOffSession": {
+            "type": "boolean"
+          },
+          "supportsRecurring": {
+            "type": "boolean"
+          }
+        }
+      },
+      "railzway.payment.v1.ProviderConnection": {
+        "type": "object",
+        "description": "ProviderConnection represents an organization's merchant account at a\npayment provider. It never contains provider credentials.",
+        "properties": {
+          "capabilities": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.ProviderCapabilities"
+              }
+            ],
+            "readOnly": true
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "healthStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.ProviderHealthStatus"
+              }
+            ],
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "providerType": {
+            "type": "string"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/railzway.payment.v1.ProviderConnectionStatus"
+              }
+            ],
+            "readOnly": true
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "providerType",
+          "displayName"
+        ]
+      },
+      "railzway.payment.v1.ProviderConnectionStatus": {
+        "type": "string",
+        "description": "ProviderConnectionStatus describes whether a merchant connection can route\nnew payments.",
+        "enum": [
+          "PROVIDER_CONNECTION_STATUS_UNSPECIFIED",
+          "PROVIDER_CONNECTION_STATUS_PENDING",
+          "PROVIDER_CONNECTION_STATUS_ACTIVE",
+          "PROVIDER_CONNECTION_STATUS_RESTRICTED",
+          "PROVIDER_CONNECTION_STATUS_DISABLED"
+        ]
+      },
+      "railzway.payment.v1.ProviderCredential": {
+        "type": "object",
+        "description": "ProviderCredential supplies an opaque credential during connection setup.\nImplementations must consume it without persisting it in the API resource.",
+        "properties": {
+          "secretReference": {
+            "type": "string"
+          },
+          "setupToken": {
+            "type": "string"
+          }
+        },
+        "oneOf": [
+          {
+            "type": "object",
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "secretReference"
+                  ]
+                },
+                {
+                  "required": [
+                    "setupToken"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "secretReference": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "secretReference"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "setupToken": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "setupToken"
+            ]
+          }
+        ]
+      },
+      "railzway.payment.v1.ProviderHealthStatus": {
+        "type": "string",
+        "description": "ProviderHealthStatus describes the observed runtime availability of a\nprovider connection without changing its administrative state.",
+        "enum": [
+          "PROVIDER_HEALTH_STATUS_UNSPECIFIED",
+          "PROVIDER_HEALTH_STATUS_UNKNOWN",
+          "PROVIDER_HEALTH_STATUS_HEALTHY",
+          "PROVIDER_HEALTH_STATUS_DEGRADED",
+          "PROVIDER_HEALTH_STATUS_UNAVAILABLE"
+        ]
+      },
+      "railzway.payment.v1.RoutingPolicy": {
+        "type": "object",
+        "description": "RoutingPolicy contains the ordered provider rules for an organization.",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.payment.v1.RoutingRule"
+            }
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "rules"
+        ]
+      },
+      "railzway.payment.v1.RoutingRule": {
+        "type": "object",
+        "description": "RoutingRule defines provider priority for one eligibility scope.",
+        "properties": {
+          "countryCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "currencyCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "paymentMethodTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.payment.v1.PaymentMethodType"
+            }
+          },
+          "providerConnection": {
+            "type": "string"
+          },
+          "requireOffSession": {
+            "type": "boolean"
+          },
+          "requireRecurring": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "providerConnection"
+        ]
+      },
+      "railzway.api.ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "rule",
+          "message"
+        ]
+      },
+      "railzway.api.Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "INVALID_ARGUMENT"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/railzway.api.ErrorDetail"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "details"
+        ]
+      },
+      "railzway.api.ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/railzway.api.Error"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "PaymentConfigurationService",
+      "description": "PaymentConfigurationService manages organization-owned provider connections\nand their routing policy."
+    },
+    {
+      "name": "PaymentMethodService",
+      "description": "PaymentMethodService manages provider-bound customer payment methods."
+    },
+    {
+      "name": "PaymentService",
+      "description": "PaymentService explicitly collects finalized invoices and exposes attempts."
+    }
+  ]
+}
