@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           path: railzway-docs
-          token: ${{ secrets.DOCS_PR_TOKEN || github.token }}
+          token: ${{ secrets.DOCS_AUTOMATION_TOKEN }}
 
       - name: Checkout API contracts
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -40,7 +40,6 @@ jobs:
           repository: railzwaylabs/railzwayapis
           ref: ${{ env.API_REF }}
           path: railzwayapis
-          token: ${{ secrets.API_READ_TOKEN || github.token }}
           persist-credentials: false
 
       - name: Set up Buf
@@ -110,7 +109,7 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         working-directory: railzway-docs
         env:
-          GH_TOKEN: ${{ secrets.DOCS_PR_TOKEN || github.token }}
+          GH_TOKEN: ${{ secrets.DOCS_AUTOMATION_TOKEN }}
           API_SHA: ${{ env.API_REF }}
         run: |
           gh pr create \

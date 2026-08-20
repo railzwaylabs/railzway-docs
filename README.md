@@ -35,17 +35,13 @@ containing only the generated OpenAPI specifications and reference pages.
 Repository setup:
 
 1. Create `railzwaylabs/railzway-docs` and enable GitHub Actions.
-2. Add `DOCS_DISPATCH_TOKEN` to `railzwayapis`. Use a fine-grained token or
-   GitHub App token that can send repository dispatch events to
+2. Add one organization Actions secret named `DOCS_AUTOMATION_TOKEN`, then grant
+   access only to `railzwayapis` and `railzway-docs`. The token must be able to
+   send repository dispatch events, push branches, and create pull requests in
    `railzwaylabs/railzway-docs`.
-3. Add `DOCS_PR_TOKEN` to `railzway-docs` with permission to push branches and
-   create pull requests. A GitHub App installation token is preferred. Using a
-   token other than the workflow's built-in `GITHUB_TOKEN` ensures the generated
-   pull request triggers `Docs CI`.
-4. Allow GitHub Actions in `railzway-docs` to create pull requests as a fallback.
-5. If `railzwayapis` is private, add `API_READ_TOKEN` to `railzway-docs` with
-   read-only access to that repository.
-6. Add `BUF_TOKEN` to `railzway-docs` if generation needs authenticated BSR
+3. Allow GitHub Actions in `railzway-docs` to create pull requests as a fallback.
+4. No API checkout token is required because `railzwayapis` is public.
+5. Add `BUF_TOKEN` to `railzway-docs` only if generation needs authenticated BSR
    access.
 
 The docs workflow can also be started manually with a branch, tag, or commit
