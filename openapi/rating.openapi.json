@@ -6,7 +6,7 @@
     "description": "Query aggregated usage and preview deterministic charges using the effective contract and rates."
   },
   "paths": {
-    "/v1/organizations/{customer}/customers/{customer_1}/usage": {
+    "/v1/customers/{customer_1}/usage": {
       "get": {
         "tags": [
           "RatingService"
@@ -14,14 +14,6 @@
         "summary": "QueryUsage returns aggregated usage for a reporting period.",
         "operationId": "RatingService_QueryUsage",
         "parameters": [
-          {
-            "name": "customer",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "customer_1",
             "in": "path",
@@ -134,7 +126,7 @@
         }
       }
     },
-    "/v1/organizations/{customer}/customers/{customer_1}/charges:preview": {
+    "/v1/customers/{customer_1}/charges:preview": {
       "post": {
         "tags": [
           "RatingService"
@@ -142,14 +134,6 @@
         "summary": "PreviewCharges rates usage without creating or finalizing an invoice.",
         "operationId": "RatingService_PreviewCharges",
         "parameters": [
-          {
-            "name": "customer",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "customer_1",
             "in": "path",

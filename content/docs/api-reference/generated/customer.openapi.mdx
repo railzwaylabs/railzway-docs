@@ -44,7 +44,7 @@ export default function Layout(props) {
   return (
     <>
       {props.children}
-      <Comp document="./openapi/customer.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/customers","method":"get"},{"path":"/v1/organizations/{parent}/customers","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}","method":"get"},{"path":"/v1/organizations/{customer.name}/customers/{customer.name_1}","method":"patch"},{"path":"/v1/organizations/{name}/customers/{name_1}:archive","method":"post"}]} showTitle showDescription />
+      <Comp document="./openapi/customer.openapi.json" webhooks={[]} operations={[{"path":"/v1/customers","method":"get"},{"path":"/v1/customers","method":"post"},{"path":"/v1/customers/{name_1}","method":"get"},{"path":"/v1/customers/{customer.name_1}","method":"patch"},{"path":"/v1/customers/{name_1}:archive","method":"post"}]} showTitle showDescription />
     </>
   );
 }

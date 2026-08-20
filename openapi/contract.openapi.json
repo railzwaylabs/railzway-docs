@@ -6,7 +6,7 @@
     "description": "Bind customers to effective-dated commercial terms and manage immutable scheduled amendments."
   },
   "paths": {
-    "/v1/organizations/{parent}/customers/{parent_1}/contracts": {
+    "/v1/customers/{parent_1}/contracts": {
       "get": {
         "tags": [
           "ContractService"
@@ -14,14 +14,6 @@
         "summary": "ListContracts lists contracts belonging to a customer.",
         "operationId": "ContractService_ListContracts",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -127,14 +119,6 @@
         "summary": "CreateContract creates a negotiated agreement for a customer.",
         "operationId": "ContractService_CreateContract",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -244,7 +228,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}": {
+    "/v1/customers/{name_1}/contracts/{name_2}": {
       "get": {
         "tags": [
           "ContractService"
@@ -252,14 +236,6 @@
         "summary": "GetContract retrieves a contract by resource name.",
         "operationId": "ContractService_GetContract",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -352,7 +328,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:scheduleAmendment": {
+    "/v1/customers/{name_1}/contracts/{name_2}:scheduleAmendment": {
       "post": {
         "tags": [
           "ContractService"
@@ -360,14 +336,6 @@
         "summary": "ScheduleAmendment schedules a future contract change.",
         "operationId": "ContractService_ScheduleAmendment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -481,7 +449,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}": {
+    "/v1/customers/{name_1}/contracts/{name_2}/amendments/{name_3}": {
       "get": {
         "tags": [
           "ContractService"
@@ -489,14 +457,6 @@
         "summary": "GetAmendment retrieves a contract amendment by resource name.",
         "operationId": "ContractService_GetAmendment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -597,7 +557,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/contracts/{parent_2}/amendments": {
+    "/v1/customers/{parent_1}/contracts/{parent_2}/amendments": {
       "get": {
         "tags": [
           "ContractService"
@@ -605,14 +565,6 @@
         "summary": "ListAmendments lists amendments for a contract.",
         "operationId": "ContractService_ListAmendments",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -720,7 +672,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}:cancel": {
+    "/v1/customers/{name_1}/contracts/{name_2}/amendments/{name_3}:cancel": {
       "post": {
         "tags": [
           "ContractService"
@@ -728,14 +680,6 @@
         "summary": "CancelAmendment cancels an amendment that has not yet been applied.",
         "operationId": "ContractService_CancelAmendment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -857,7 +801,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:end": {
+    "/v1/customers/{name_1}/contracts/{name_2}:end": {
       "post": {
         "tags": [
           "ContractService"
@@ -865,14 +809,6 @@
         "summary": "EndContract schedules or records the end of a contract.",
         "operationId": "ContractService_EndContract",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",

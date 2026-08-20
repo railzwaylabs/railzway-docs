@@ -6,7 +6,7 @@
     "description": "Manage recurring product instances under a customer contract, including amendments and cancellation."
   },
   "paths": {
-    "/v1/organizations/{parent}/customers/{parent_1}/subscriptions": {
+    "/v1/customers/{parent_1}/subscriptions": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -14,14 +14,6 @@
         "summary": "ListSubscriptions lists subscriptions belonging to a customer.",
         "operationId": "SubscriptionService_ListSubscriptions",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -127,14 +119,6 @@
         "summary": "CreateSubscription creates a subscription for a customer.",
         "operationId": "SubscriptionService_CreateSubscription",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -244,7 +228,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}": {
+    "/v1/customers/{name_1}/subscriptions/{name_2}": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -252,14 +236,6 @@
         "summary": "GetSubscription retrieves a subscription by resource name.",
         "operationId": "SubscriptionService_GetSubscription",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -352,7 +328,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:cancel": {
+    "/v1/customers/{name_1}/subscriptions/{name_2}:cancel": {
       "post": {
         "tags": [
           "SubscriptionService"
@@ -360,14 +336,6 @@
         "summary": "CancelSubscription schedules or immediately applies cancellation.",
         "operationId": "SubscriptionService_CancelSubscription",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -482,7 +450,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}:scheduleAmendment": {
+    "/v1/customers/{name_1}/subscriptions/{name_2}:scheduleAmendment": {
       "post": {
         "tags": [
           "SubscriptionService"
@@ -490,14 +458,6 @@
         "summary": "ScheduleAmendment schedules a future subscription change.",
         "operationId": "SubscriptionService_ScheduleAmendment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -611,7 +571,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}": {
+    "/v1/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -619,14 +579,6 @@
         "summary": "GetAmendment retrieves a subscription amendment by resource name.",
         "operationId": "SubscriptionService_GetAmendment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -727,7 +679,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/subscriptions/{parent_2}/amendments": {
+    "/v1/customers/{parent_1}/subscriptions/{parent_2}/amendments": {
       "get": {
         "tags": [
           "SubscriptionService"
@@ -735,14 +687,6 @@
         "summary": "ListAmendments lists amendments for a subscription.",
         "operationId": "SubscriptionService_ListAmendments",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -850,7 +794,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}:cancel": {
+    "/v1/customers/{name_1}/subscriptions/{name_2}/amendments/{name_3}:cancel": {
       "post": {
         "tags": [
           "SubscriptionService"
@@ -858,14 +802,6 @@
         "summary": "CancelAmendment cancels an amendment that has not yet been applied.",
         "operationId": "SubscriptionService_CancelAmendment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",

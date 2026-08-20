@@ -6,7 +6,7 @@
     "description": "Grant promotional credits, record paid commitments, inspect balances, and preserve financial history."
   },
   "paths": {
-    "/v1/organizations/{parent}/customers/{parent_1}/credits": {
+    "/v1/customers/{parent_1}/credits": {
       "get": {
         "tags": [
           "CreditService"
@@ -14,14 +14,6 @@
         "summary": "ListCredits lists credit grants belonging to a customer.",
         "operationId": "CreditService_ListCredits",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -135,14 +127,6 @@
         "operationId": "CreditService_GrantCredit",
         "parameters": [
           {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "parent_1",
             "in": "path",
             "required": true,
@@ -251,7 +235,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/credits/{name_2}": {
+    "/v1/customers/{name_1}/credits/{name_2}": {
       "get": {
         "tags": [
           "CreditService"
@@ -259,14 +243,6 @@
         "summary": "GetCredit retrieves a credit grant by resource name.",
         "operationId": "CreditService_GetCredit",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -359,7 +335,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/credits/{name_2}:void": {
+    "/v1/customers/{name_1}/credits/{name_2}:void": {
       "post": {
         "tags": [
           "CreditService"
@@ -367,14 +343,6 @@
         "summary": "VoidCredit prevents any remaining grant amount from being consumed.",
         "operationId": "CreditService_VoidCredit",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -489,7 +457,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/commitments": {
+    "/v1/customers/{parent_1}/commitments": {
       "get": {
         "tags": [
           "CreditService"
@@ -497,14 +465,6 @@
         "summary": "ListCommitments lists commitments belonging to a customer.",
         "operationId": "CreditService_ListCommitments",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -618,14 +578,6 @@
         "operationId": "CreditService_CreateCommitment",
         "parameters": [
           {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "parent_1",
             "in": "path",
             "required": true,
@@ -734,7 +686,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/commitments/{name_2}": {
+    "/v1/customers/{name_1}/commitments/{name_2}": {
       "get": {
         "tags": [
           "CreditService"
@@ -742,14 +694,6 @@
         "summary": "GetCommitment retrieves a commitment by resource name.",
         "operationId": "CreditService_GetCommitment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -842,7 +786,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/commitments/{name_2}:void": {
+    "/v1/customers/{name_1}/commitments/{name_2}:void": {
       "post": {
         "tags": [
           "CreditService"
@@ -850,14 +794,6 @@
         "summary": "VoidCommitment deactivates a commitment while preserving its record.",
         "operationId": "CreditService_VoidCommitment",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -972,7 +908,7 @@
         }
       }
     },
-    "/v1/organizations/{customer}/customers/{customer_1}/balance": {
+    "/v1/customers/{customer_1}/balance": {
       "get": {
         "tags": [
           "CreditService"
@@ -980,14 +916,6 @@
         "summary": "GetBalance returns the customer's current credit balance.",
         "operationId": "CreditService_GetBalance",
         "parameters": [
-          {
-            "name": "customer",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "customer_1",
             "in": "path",
@@ -1080,7 +1008,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/balanceTransactions": {
+    "/v1/customers/{parent_1}/balanceTransactions": {
       "get": {
         "tags": [
           "CreditService"
@@ -1088,14 +1016,6 @@
         "summary": "ListBalanceTransactions lists the ledger entries behind a balance.",
         "operationId": "CreditService_ListBalanceTransactions",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",

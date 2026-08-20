@@ -6,7 +6,7 @@
     "description": "Register, verify, list, and remove hostnames that route API traffic to an organization."
   },
   "paths": {
-    "/v1/organizations/{parent}/domains": {
+    "/v1/domains": {
       "get": {
         "tags": [
           "OrganizationDomainService"
@@ -14,14 +14,6 @@
         "summary": "ListOrganizationDomains lists domains assigned to an organization.",
         "operationId": "OrganizationDomainService_ListOrganizationDomains",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -120,14 +112,6 @@
         "operationId": "OrganizationDomainService_CreateOrganizationDomain",
         "parameters": [
           {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "organizationDomainId",
             "in": "query",
             "required": true,
@@ -221,7 +205,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/domains/{name_1}": {
+    "/v1/domains/{name_1}": {
       "get": {
         "tags": [
           "OrganizationDomainService"
@@ -229,14 +213,6 @@
         "summary": "GetOrganizationDomain returns one domain visible to the caller.",
         "operationId": "OrganizationDomainService_GetOrganizationDomain",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -328,14 +304,6 @@
         "operationId": "OrganizationDomainService_DeleteOrganizationDomain",
         "parameters": [
           {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "name_1",
             "in": "path",
             "required": true,
@@ -419,7 +387,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/domains/{name_1}/verify": {
+    "/v1/domains/{name_1}/verify": {
       "post": {
         "tags": [
           "OrganizationDomainService"
@@ -427,14 +395,6 @@
         "summary": "VerifyOrganizationDomain checks DNS and activates a custom domain.",
         "operationId": "OrganizationDomainService_VerifyOrganizationDomain",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",

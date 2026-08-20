@@ -6,7 +6,7 @@
     "description": "Preview, finalize, retrieve, list, and void immutable billing-period invoices."
   },
   "paths": {
-    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}": {
+    "/v1/customers/{name_1}/invoices/{name_2}": {
       "get": {
         "tags": [
           "InvoiceService"
@@ -14,14 +14,6 @@
         "summary": "GetInvoice retrieves an invoice by resource name.",
         "operationId": "InvoiceService_GetInvoice",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -114,7 +106,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/invoices": {
+    "/v1/customers/{parent_1}/invoices": {
       "get": {
         "tags": [
           "InvoiceService"
@@ -122,14 +114,6 @@
         "summary": "ListInvoices lists invoices belonging to a customer.",
         "operationId": "InvoiceService_ListInvoices",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -236,7 +220,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/invoices:preview": {
+    "/v1/customers/{parent_1}/invoices:preview": {
       "post": {
         "tags": [
           "InvoiceService"
@@ -244,14 +228,6 @@
         "summary": "PreviewInvoice computes an invoice without persisting a finalized result.",
         "operationId": "InvoiceService_PreviewInvoice",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "parent_1",
             "in": "path",
@@ -363,7 +339,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:finalize": {
+    "/v1/customers/{name_1}/invoices/{name_2}:finalize": {
       "post": {
         "tags": [
           "InvoiceService"
@@ -371,14 +347,6 @@
         "summary": "FinalizeInvoice makes an invoice immutable for financial reporting.",
         "operationId": "InvoiceService_FinalizeInvoice",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -489,7 +457,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/invoices/{name_2}:void": {
+    "/v1/customers/{name_1}/invoices/{name_2}:void": {
       "post": {
         "tags": [
           "InvoiceService"
@@ -497,14 +465,6 @@
         "summary": "VoidInvoice invalidates a finalized invoice while preserving its record.",
         "operationId": "InvoiceService_VoidInvoice",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",

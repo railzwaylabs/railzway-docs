@@ -6,23 +6,14 @@
     "description": "Ingest idempotent single or batch usage events and create append-only corrections."
   },
   "paths": {
-    "/v1/organizations/{parent}/usageEvents:ingest": {
+    "/v1/usageEvents:ingest": {
       "post": {
         "tags": [
           "UsageIngestionService"
         ],
         "summary": "IngestUsage accepts one idempotent usage event.",
         "operationId": "UsageIngestionService_IngestUsage",
-        "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
@@ -116,23 +107,14 @@
         }
       }
     },
-    "/v1/organizations/{parent}/usageEvents:batchIngest": {
+    "/v1/usageEvents:batchIngest": {
       "post": {
         "tags": [
           "UsageIngestionService"
         ],
         "summary": "BatchIngestUsage accepts multiple independently processed usage events.",
         "operationId": "UsageIngestionService_BatchIngestUsage",
-        "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
@@ -229,7 +211,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/usageEvents/{name_1}": {
+    "/v1/usageEvents/{name_1}": {
       "get": {
         "tags": [
           "UsageIngestionService"
@@ -237,14 +219,6 @@
         "summary": "GetUsageEvent retrieves an ingested usage event.",
         "operationId": "UsageIngestionService_GetUsageEvent",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -329,7 +303,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/usageEvents": {
+    "/v1/usageEvents": {
       "get": {
         "tags": [
           "UsageIngestionService"
@@ -337,14 +311,6 @@
         "summary": "ListUsageEvents lists usage events in an organization.",
         "operationId": "UsageIngestionService_ListUsageEvents",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -466,7 +432,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/usageEvents/{name_1}:correct": {
+    "/v1/usageEvents/{name_1}:correct": {
       "post": {
         "tags": [
           "UsageIngestionService"
@@ -474,14 +440,6 @@
         "summary": "CorrectUsageEvent supersedes an accepted event with corrected data.",
         "operationId": "UsageIngestionService_CorrectUsageEvent",
         "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "name_1",
             "in": "path",
@@ -591,23 +549,14 @@
         }
       }
     },
-    "/v1/organizations/{parent}/usageEvents:replay": {
+    "/v1/usageEvents:replay": {
       "post": {
         "tags": [
           "UsageIngestionService"
         ],
         "summary": "ReplayUsageEvents requests reprocessing of previously ingested events.",
         "operationId": "UsageIngestionService_ReplayUsageEvents",
-        "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
