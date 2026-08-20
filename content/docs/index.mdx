@@ -1,31 +1,51 @@
 ---
-title: Railzway documentation
-description: Build accurate, deterministic usage-based billing with Railzway.
+title: Build billing infrastructure with Railzway
+description: Guides and API references for deterministic metering, pricing, subscriptions, invoicing, and payments.
 ---
 
-Railzway is an open-source billing engine for metering usage, applying commercial
-terms, and producing reproducible financial records.
+Railzway Fare is the open monetization engine for modern SaaS products. Turn
+product usage into explainable charges and invoice-ready financial records while
+keeping pricing logic versioned, auditable, and under your control.
 
-<Callout title="Contract-first API">
-  The public API is defined in versioned Protocol Buffer packages and exposed
-  through both gRPC and REST/JSON transcoding.
+<Callout title="Contract-first by design">
+  Every public API starts from versioned Protocol Buffer contracts and is
+  available through gRPC and REST/JSON transcoding.
 </Callout>
 
-## Start here
+## Start building
 
 <Cards>
-  <Card title="Quickstart" description="Complete your first billing workflow." href="/quickstart" />
-  <Card title="Core concepts" description="Understand Railzway's billing model." href="/concepts" />
-  <Card title="API essentials" description="Authentication, idempotency, errors, and pagination." href="/essentials/authentication" />
-  <Card title="API reference" description="Explore the generated Fare API contract." href="/api-reference" />
+  <Card title="Quickstart" description="Send your first request and complete a billing workflow." href="/quickstart" />
+  <Card title="API reference" description="Explore every generated Fare endpoint and schema." href="/api-reference" />
+  <Card title="Core concepts" description="Learn how usage becomes deterministic financial output." href="/concepts" />
+  <Card title="Authentication" description="Connect securely with organization-scoped API keys." href="/essentials/authentication" />
 </Cards>
 
-## Billing data flow
+## One billing flow, clear boundaries
 
 ```text
 usage event -> meter -> product -> effective rate -> contract
             -> rated charge -> credits -> invoice -> payment
 ```
 
-Railzway keeps billing computation separate from payment collection. Finalizing
-an invoice records what is owed; collecting it is an explicit operation.
+Railzway keeps computation separate from collection. Finalizing an invoice
+records what is owed; collecting it is an explicit operation. This boundary
+makes every financial outcome easier to reproduce, inspect, and explain.
+
+## API essentials
+
+Build on predictable platform conventions before integrating individual
+resources.
+
+<Cards>
+  <Card title="Base URLs" description="Choose an organization subdomain or configure a custom domain." href="/essentials/base-urls" />
+  <Card title="Idempotency" description="Safely retry mutating requests without duplicating financial operations." href="/essentials/idempotency" />
+  <Card title="Errors" description="Handle the shared error envelope and documented HTTP statuses." href="/essentials/errors" />
+  <Card title="API keys" description="Create, store, rotate, and revoke credentials safely." href="/essentials/api-keys" />
+</Cards>
+
+## Deployment is your choice
+
+Run Fare as open-source infrastructure in your environment or use Railzway
+Cloud for managed operations. The API contract and billing model remain the
+same across deployment models.

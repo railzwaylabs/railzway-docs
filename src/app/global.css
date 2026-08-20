@@ -2,6 +2,7 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 @import 'fumadocs-openapi/css/preset.css';
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 html {
   scrollbar-gutter: stable;
@@ -13,10 +14,99 @@ html > body[data-scroll-locked] {
 }
 
 :root {
-  --color-fd-primary: hsl(154 68% 38%);
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --color-fd-background: hsl(0 0% 100%);
+  --color-fd-foreground: hsl(222 47% 11%);
+  --color-fd-muted: hsl(210 40% 96.1%);
+  --color-fd-muted-foreground: hsl(215 16% 47%);
+  --color-fd-card: hsl(0 0% 100%);
+  --color-fd-card-foreground: hsl(222 47% 11%);
+  --color-fd-popover: hsl(0 0% 100%);
+  --color-fd-popover-foreground: hsl(222 47% 11%);
+  --color-fd-border: hsl(214 32% 91%);
+  --color-fd-primary: hsl(243 75% 59%);
+  --color-fd-primary-foreground: hsl(0 0% 100%);
+  --color-fd-secondary: hsl(210 40% 96.1%);
+  --color-fd-secondary-foreground: hsl(222 47% 11%);
+  --color-fd-accent: hsl(243 75% 97%);
+  --color-fd-accent-foreground: hsl(243 75% 42%);
+  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 .dark {
-  --color-fd-primary: hsl(153 72% 54%);
+  --color-fd-background: hsl(222 47% 6%);
+  --color-fd-foreground: hsl(210 40% 96%);
+  --color-fd-muted: hsl(217 33% 12%);
+  --color-fd-muted-foreground: hsl(215 20% 65%);
+  --color-fd-card: hsl(222 40% 8%);
+  --color-fd-card-foreground: hsl(210 40% 96%);
+  --color-fd-popover: hsl(222 40% 8%);
+  --color-fd-popover-foreground: hsl(210 40% 96%);
+  --color-fd-border: hsl(217 33% 18%);
+  --color-fd-primary: hsl(243 100% 78%);
+  --color-fd-primary-foreground: hsl(222 47% 8%);
+  --color-fd-secondary: hsl(217 33% 14%);
+  --color-fd-secondary-foreground: hsl(210 40% 96%);
+  --color-fd-accent: hsl(243 35% 18%);
+  --color-fd-accent-foreground: hsl(243 100% 86%);
+}
+
+body {
+  letter-spacing: -0.006em;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+.railzway-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--color-fd-foreground);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.railzway-brand-mark {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.6rem;
+  color: white;
+  background: hsl(222 47% 11%);
+  box-shadow: 0 1px 3px rgb(15 23 42 / 0.18);
+}
+
+.railzway-brand-mark svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.railzway-brand-product {
+  border-left: 1px solid var(--color-fd-border);
+  padding-left: 0.625rem;
+  color: var(--color-fd-muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  letter-spacing: -0.035em;
+}
+
+.prose a {
+  text-underline-offset: 0.2em;
 }
