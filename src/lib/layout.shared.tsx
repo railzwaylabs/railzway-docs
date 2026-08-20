@@ -5,12 +5,12 @@ export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
       title: appName,
-      url: '/docs',
+      url: '/',
     },
     links: [
       {
         text: 'API Reference',
-        url: '/docs/api-reference',
+        url: '/api-reference',
         active: 'nested-url',
       },
     ],
