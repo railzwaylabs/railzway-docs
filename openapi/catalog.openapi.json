@@ -6,7 +6,7 @@
     "description": "Model products, rate cards, effective pricing periods, tiers, packages, and dimensional rates."
   },
   "paths": {
-    "/v1/organizations/{parent}/products": {
+    "/v1/products": {
       "get": {
         "tags": [
           "CatalogService"
@@ -14,14 +14,6 @@
         "summary": "Lists products owned by an organization.",
         "operationId": "CatalogService_ListProducts",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -119,14 +111,6 @@
         "summary": "Creates a product that can appear as an invoice line item.",
         "operationId": "CatalogService_CreateProduct",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "productId",
             "in": "query",
@@ -228,7 +212,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/products/{name_1}": {
+    "/v1/products/{name}": {
       "get": {
         "tags": [
           "CatalogService"
@@ -238,14 +222,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -328,7 +304,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/rateCards": {
+    "/v1/rateCards": {
       "get": {
         "tags": [
           "CatalogService"
@@ -336,14 +312,6 @@
         "summary": "Lists rate cards owned by an organization.",
         "operationId": "CatalogService_ListRateCards",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "pageSize",
             "in": "query",
@@ -441,14 +409,6 @@
         "summary": "Creates a reusable price book for customer contracts.",
         "operationId": "CatalogService_CreateRateCard",
         "parameters": [
-          {
-            "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "rateCardId",
             "in": "query",
@@ -550,7 +510,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/rateCards/{name_1}": {
+    "/v1/rateCards/{name}": {
       "get": {
         "tags": [
           "CatalogService"
@@ -560,14 +520,6 @@
         "parameters": [
           {
             "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -650,7 +602,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/rateCards/{parent_1}/rates": {
+    "/v1/rateCards/{parent}/rates": {
       "post": {
         "tags": [
           "CatalogService"
@@ -660,14 +612,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {

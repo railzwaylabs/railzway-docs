@@ -29,7 +29,7 @@ export default function Layout(props) {
   return (
     <>
       {props.children}
-      <Comp document="./openapi/rating.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{customer}/customers/{customer_1}/usage","method":"get"},{"path":"/v1/organizations/{customer}/customers/{customer_1}/charges:preview","method":"post"}]} showTitle showDescription />
+      <Comp document="./openapi/rating.openapi.json" webhooks={[]} operations={[{"path":"/v1/customers/{customer}/usage","method":"get"},{"path":"/v1/customers/{customer}/charges:preview","method":"post"}]} showTitle showDescription />
     </>
   );
 }

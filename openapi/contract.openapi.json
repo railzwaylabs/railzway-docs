@@ -6,7 +6,7 @@
     "description": "Bind customers to effective-dated commercial terms and manage immutable scheduled amendments."
   },
   "paths": {
-    "/v1/organizations/{parent}/customers/{parent_1}/contracts": {
+    "/v1/customers/{parent}/contracts": {
       "get": {
         "tags": [
           "ContractService"
@@ -16,14 +16,6 @@
         "parameters": [
           {
             "name": "parent",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_1",
             "in": "path",
             "required": true,
             "schema": {
@@ -136,14 +128,6 @@
             }
           },
           {
-            "name": "parent_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "contractId",
             "in": "query",
             "required": true,
@@ -244,7 +228,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}": {
+    "/v1/customers/{name}/contracts/{name_1}": {
       "get": {
         "tags": [
           "ContractService"
@@ -262,14 +246,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -352,7 +328,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:scheduleAmendment": {
+    "/v1/customers/{name}/contracts/{name_1}:scheduleAmendment": {
       "post": {
         "tags": [
           "ContractService"
@@ -370,14 +346,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -481,7 +449,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}": {
+    "/v1/customers/{name}/contracts/{name_1}/amendments/{name_2}": {
       "get": {
         "tags": [
           "ContractService"
@@ -507,14 +475,6 @@
           },
           {
             "name": "name_2",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_3",
             "in": "path",
             "required": true,
             "schema": {
@@ -597,7 +557,7 @@
         }
       }
     },
-    "/v1/organizations/{parent}/customers/{parent_1}/contracts/{parent_2}/amendments": {
+    "/v1/customers/{parent}/contracts/{parent_1}/amendments": {
       "get": {
         "tags": [
           "ContractService"
@@ -615,14 +575,6 @@
           },
           {
             "name": "parent_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "parent_2",
             "in": "path",
             "required": true,
             "schema": {
@@ -720,7 +672,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}:cancel": {
+    "/v1/customers/{name}/contracts/{name_1}/amendments/{name_2}:cancel": {
       "post": {
         "tags": [
           "ContractService"
@@ -746,14 +698,6 @@
           },
           {
             "name": "name_2",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_3",
             "in": "path",
             "required": true,
             "schema": {
@@ -857,7 +801,7 @@
         }
       }
     },
-    "/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:end": {
+    "/v1/customers/{name}/contracts/{name_1}:end": {
       "post": {
         "tags": [
           "ContractService"
@@ -875,14 +819,6 @@
           },
           {
             "name": "name_1",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_2",
             "in": "path",
             "required": true,
             "schema": {

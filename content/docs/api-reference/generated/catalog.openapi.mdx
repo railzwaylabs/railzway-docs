@@ -54,7 +54,7 @@ export default function Layout(props) {
   return (
     <>
       {props.children}
-      <Comp document="./openapi/catalog.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/products","method":"get"},{"path":"/v1/organizations/{parent}/products","method":"post"},{"path":"/v1/organizations/{name}/products/{name_1}","method":"get"},{"path":"/v1/organizations/{parent}/rateCards","method":"get"},{"path":"/v1/organizations/{parent}/rateCards","method":"post"},{"path":"/v1/organizations/{name}/rateCards/{name_1}","method":"get"},{"path":"/v1/organizations/{parent}/rateCards/{parent_1}/rates","method":"post"}]} showTitle showDescription />
+      <Comp document="./openapi/catalog.openapi.json" webhooks={[]} operations={[{"path":"/v1/products","method":"get"},{"path":"/v1/products","method":"post"},{"path":"/v1/products/{name}","method":"get"},{"path":"/v1/rateCards","method":"get"},{"path":"/v1/rateCards","method":"post"},{"path":"/v1/rateCards/{name}","method":"get"},{"path":"/v1/rateCards/{parent}/rates","method":"post"}]} showTitle showDescription />
     </>
   );
 }

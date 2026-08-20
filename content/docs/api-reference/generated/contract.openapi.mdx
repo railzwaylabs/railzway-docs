@@ -59,7 +59,7 @@ export default function Layout(props) {
   return (
     <>
       {props.children}
-      <Comp document="./openapi/contract.openapi.json" webhooks={[]} operations={[{"path":"/v1/organizations/{parent}/customers/{parent_1}/contracts","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/contracts","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:scheduleAmendment","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}","method":"get"},{"path":"/v1/organizations/{parent}/customers/{parent_1}/contracts/{parent_2}/amendments","method":"get"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}/amendments/{name_3}:cancel","method":"post"},{"path":"/v1/organizations/{name}/customers/{name_1}/contracts/{name_2}:end","method":"post"}]} showTitle showDescription />
+      <Comp document="./openapi/contract.openapi.json" webhooks={[]} operations={[{"path":"/v1/customers/{parent}/contracts","method":"get"},{"path":"/v1/customers/{parent}/contracts","method":"post"},{"path":"/v1/customers/{name}/contracts/{name_1}","method":"get"},{"path":"/v1/customers/{name}/contracts/{name_1}:scheduleAmendment","method":"post"},{"path":"/v1/customers/{name}/contracts/{name_1}/amendments/{name_2}","method":"get"},{"path":"/v1/customers/{parent}/contracts/{parent_1}/amendments","method":"get"},{"path":"/v1/customers/{name}/contracts/{name_1}/amendments/{name_2}:cancel","method":"post"},{"path":"/v1/customers/{name}/contracts/{name_1}:end","method":"post"}]} showTitle showDescription />
     </>
   );
 }
