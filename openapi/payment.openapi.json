@@ -93,11 +93,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -206,11 +213,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -298,11 +312,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -415,11 +436,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -528,11 +556,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -610,11 +645,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -717,11 +759,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -824,11 +873,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -943,11 +999,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1043,11 +1106,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1164,11 +1234,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1278,11 +1355,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1419,11 +1503,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1519,11 +1610,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1643,11 +1741,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1751,11 +1856,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -1866,11 +1978,18 @@
             }
           },
           "default": {
-            "description": "An error response using Fare's stable HTTP error envelope.",
+            "description": "An unexpected error response using Fare's stable HTTP error envelope.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/railzway.api.ErrorResponse"
+                },
+                "example": {
+                  "error": {
+                    "code": "INTERNAL",
+                    "message": "Internal server error",
+                    "details": []
+                  }
                 }
               }
             }
@@ -2444,13 +2563,16 @@
         "type": "object",
         "properties": {
           "field": {
-            "type": "string"
+            "type": "string",
+            "description": "Request field that failed validation."
           },
           "rule": {
-            "type": "string"
+            "type": "string",
+            "description": "Stable validation rule identifier."
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "description": "Developer-facing validation message."
           }
         },
         "required": [
@@ -2464,10 +2586,11 @@
         "properties": {
           "code": {
             "type": "string",
-            "example": "INVALID_ARGUMENT"
+            "description": "Stable application error code, for example INVALID_ARGUMENT."
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "description": "Developer-facing error message."
           },
           "details": {
             "type": "array",
