@@ -19,7 +19,7 @@ Use the organization's active default hostname and an API key with
 
 ```bash
 curl -X POST \
-  'https://acme.api.railzway.com/v1/organizations/acme/domains' \
+  'https://acme.railzway.app/v1/domains' \
   -H "Authorization: Bearer $RAILZWAY_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
@@ -59,7 +59,7 @@ After DNS propagation, request live verification:
 
 ```bash
 curl -X POST \
-  'https://acme.api.railzway.com/v1/organizations/acme/domains/billing-api/verify' \
+  'https://acme.railzway.app/v1/domains/billing-api/verify' \
   -H "Authorization: Bearer $RAILZWAY_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{}'
@@ -73,7 +73,7 @@ A matching TXT record changes the domain to `ACTIVE`. A missing record returns
 After the domain is active and TLS/ingress is ready:
 
 ```bash
-curl 'https://billing-api.acme.com/v1/organizations/acme/customers' \
+curl 'https://billing-api.acme.com/v1/customers' \
   -H "Authorization: Bearer $RAILZWAY_API_KEY"
 ```
 

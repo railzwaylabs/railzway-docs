@@ -1,0 +1,47 @@
+---
+title: Rate limits
+description: Understand Fare API rate limiting policies and how to handle 429 errors.
+---
+
+To ensure fair usage and protect the stability of our infrastructure, Fare enforces rate limits on all API requests. We use a policy-based token bucket algorithm that evaluates limits differently depending on the specific endpoint you are calling.
+
+Our rate limits are designed to give you enough capacity for normal operations while preventing abuse or accidental infinite loops.
+
+## How we determine rate limits
+
+Fare applies rate limits based on the **cost and nature of the operation**, rather than using a single global limit. We evaluate limits in the following order:
+
+1.  **Write-heavy operations:** Endpoints that write significant amounts of data (like `IngestUsage`) have tighter limits per caller to prevent database overload.
+2.  **CPU-intensive operations:** Endpoints that require complex calculations (like rating usage data) have moderate limits.
+3.  **General requests:** Read operations and standard endpoints share a generous catch-all default limit.
+
+Limits are applied **per caller**. A caller is identified by the `x-api-key` header, then the `authorization` header. If neither is provided, the request falls back to an "anonymous" shared bucket.
+
+## Current rate limits
+
+The following table outlines the default rate limit policies for the Fare API:
+
+| API Service | Requests per second | Burst limit | Description |
+| :--- | :--- | :--- | :--- |
+| **[Ingest API](/docs/api-reference/generated/ingest.openapi)**<br/>`POST /v1/usageEvents:ingest`<br/>`POST /v1/usageEvents:batchIngest`<br/>`GET /v1/usageEvents/{name}`<br/>`GET /v1/usageEvents` | 50 | 10 | Strict limits for high-volume write operations to prevent abuse. |
+| **[Rating API](/docs/api-reference/generated/rating.openapi)**<br/>`POST /v1/customers/{customer}/charges:preview`<br/>`GET /v1/customers/{customer}/usage` | 30 | 5 | Limits for CPU-intensive rating calculations. |
+| **All other endpoints**<br/>*(Default fallback)* | 200 | 40 | Generous budget for standard read and write operations. |
+
+<Callout type="info">
+  If you are a high-volume customer and find these limits too restrictive for your legitimate use cases, please contact our support team to request a limit increase.
+</Callout>
+
+## Handling rate limit errors
+
+When you exceed the rate limit for a specific endpoint, the Fare API will reject subsequent requests and return an `HTTP 429 Too Many Requests` status code. 
+
+If you are using gRPC directly, you will receive a `ResourceExhausted` (code 8) status.
+
+### Best practices
+
+To gracefully handle rate limits in your application, we recommend the following strategies:
+
+*   **Implement exponential backoff:** When you receive a `429` (or `ResourceExhausted`) error, pause your requests for a short time (e.g., 1 second) before retrying. If the request fails again, double the wait time, and so on.
+*   **Add jitter:** Add a small random amount of time (jitter) to your backoff duration to prevent all your retrying clients from hitting the API at the exact same time (the "thundering herd" problem).
+*   **Batch your requests:** For high-volume operations like usage ingestion, use the batch endpoints (`BatchIngestUsage`) instead of sending single events concurrently.
+*   **Monitor your usage:** Keep track of your API error rates. If you consistently hit rate limits, you may need to optimize your application logic or request a limit increase.
