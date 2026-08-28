@@ -3,28 +3,27 @@ title: Base URLs
 description: Address an organization through its default or custom API hostname.
 ---
 
-Every organization receives an active default hostname when it is created. The
-hostname is derived from the organization ID and Fare's configured root domain:
+Every Railzway Cloud organization receives an active default hostname when it
+is created. The hostname is derived from its DNS-safe organization name:
 
 ```text
-https://<organization-id>.<default-root>
+https://{org_name}.railzway.app
 ```
 
-For example, with organization ID `acme` and production root
-`api.railzway.com`, the REST base URL is:
+For example, an organization named `acme` uses this REST base URL:
 
 ```text
-https://acme.api.railzway.com
+https://acme.railzway.app
 ```
 
 API paths already contain the version prefix:
 
 ```text
-https://acme.api.railzway.com/v1/organizations/acme/customers
+https://acme.railzway.app/v1/customers
 ```
 
-`domains.default_root` is an operator setting rather than a hard-coded Railzway
-domain. A self-hosted installation can use another DNS suffix. The development
+`railzway.app` is the managed Railzway Cloud domain. A self-hosted installation
+can configure another DNS suffix through `domains.default_root`; the development
 default is `fare.local`.
 
 <Callout title="The hostname is part of tenant isolation">
